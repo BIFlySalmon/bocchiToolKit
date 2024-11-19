@@ -3,4 +3,5 @@
 
 ** 需要nodejs和npm
 
-** clone项目后npm run start启动
+** clone项目后npm install安装依赖
+** 安装完之后npm run start启动
