@@ -23,11 +23,11 @@
   "homepage": "https://github.com/BIFlySalmon/FlySalmonToolKit#readme",
   "devDependencies": {
     "electron": "^33.2.0",
-    "electron-builder": "^25.1.8",
-    "electron-store": "^7.0.2"
+    "electron-builder": "^25.1.8"
   },
   "dependencies": {
-    "koffi": "^2.9.2"
+    "koffi": "^2.9.2",
+    "electron-store": "^7.0.3"
   },
   "build": {
     "productName": "波奇工具箱",
