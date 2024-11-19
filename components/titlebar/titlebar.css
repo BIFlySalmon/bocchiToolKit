@@ -1,0 +1,38 @@
+.title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(253, 167, 186);
+  color: white;
+  height: 100%;
+  -webkit-app-region: drag;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.title-bar-left {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
+  border-style: solid;
+  border-color: white;
+  border-width: 2px;
+  border-radius: 99em;
+  margin-right: 10px;
+}
+
+.title {
+  font-size: 16px;
+}
+
+.title-bar-right button {
+  background: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  -webkit-app-region: no-drag; /* 防止按钮区域响应拖动 */
+}

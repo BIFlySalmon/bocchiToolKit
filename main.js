@@ -1,26 +1,25 @@
-const { app, BrowserWindow } = require('electron/main')
+const { app, BrowserWindow } = require('electron');
 
-const createWindow = () => {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600
-  })
+const { createMainWindow } = require('./services/windowManager');
+const { setupTray } = require('./services/trayManager');
+const { initializeIpcHandlers } = require('./services/ipcHandlers');
+const { quitApp } = require('./utils/appUtils');
 
-  win.loadFile('index.html')
-}
+let mainPage;
+let tray;
 
 app.whenReady().then(() => {
-  createWindow()
+    mainPage = createMainWindow();
+    tray = setupTray(mainPage, quitApp);
+    initializeIpcHandlers(mainPage);
 
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow()
-    }
-  })
-})
+    app.on('activate', () => {
+        if (BrowserWindow.getAllWindows().length === 0) {
+            mainPage = createMainWindow();
+        }
+    });
+});
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
+    if (process.platform !== 'darwin') app.quit();
+});

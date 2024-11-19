@@ -1,10 +1,11 @@
 {
-  "name": "flysalmontoolkit",
+  "name": "bocchitoolkit",
   "version": "1.0.0",
-  "description": "三文鱼工具箱  by:BiliBili-逆飞的三文鱼",
+  "description": "波奇工具箱  by:BiliBili-逆飞的三文鱼",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "build": "electron-builder",
     "test": "echo \\\"Error: no test specified\\\" && exit 1"
   },
   "repository": {
@@ -21,6 +22,55 @@
   },
   "homepage": "https://github.com/BIFlySalmon/FlySalmonToolKit#readme",
   "devDependencies": {
-    "electron": "^33.2.0"
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8",
+    "electron-store": "^7.0.2"
+  },
+  "dependencies": {
+    "koffi": "^2.9.2"
+  },
+  "build": {
+    "productName": "波奇工具箱",
+    "appId": "com.bocchitoolkit",
+    "copyright": "逆飞的三文鱼",
+    "files": [
+      "**/*",
+      "./css",
+      "./dll",
+      "./html",
+      "./js",
+      "./res"
+    ],
+    "directories": {
+      "output": "electron-build"
+    },
+    "asar": true,
+    "extraResources": {
+      "from": "./resources/dll/",
+      "to": "dll"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "./icon256.ico",
+      "uninstallerIcon": "./icon256.ico",
+      "installerHeaderIcon": "./icon256.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "波奇工具箱",
+      "language": "2052"
+    },
+    "win": {
+      "icon": "./icon256.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    }
   }
 }

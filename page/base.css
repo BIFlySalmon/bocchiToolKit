@@ -1,0 +1,16 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    -o-user-select:none;
+    user-select:none;
+}
+.container {
+    display: grid;
+    grid-template-rows: min(10%, 50px)  auto  25px;
+    height: 100vh;
+}

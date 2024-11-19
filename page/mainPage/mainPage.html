@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <link rel="stylesheet" href="../base.css">
+    <link rel="stylesheet" href="css/titlebarRanderer.css">
+    <link rel="stylesheet" href="css/mainPage.css">
+    <title>波奇工具箱</title>
+  </head>
+  <body>
+    <div class="container">
+      <div id="title-box">
+        <div id="title-drag"></div>
+        <iframe id="titlebar" src="../../components/titlebar/titlebar.html"></iframe>
+      </div>
+      
+      <div id="content">
+        <div id="view-box">
+          <div id="card-box">
+            <div><span>动态壁纸</span></div>
+            <button id="wallpaperSet" type="button">设置</button>
+            <button id="createDesktop" type="button">开启</button>
+            <button id="restoreDesktop" type="button">关闭</button>
+          </div>
+          <div id="card-box"></div>
+          <div id="card-box"></div>
+          <div id="card-box"></div>
+          <div id="card-box"></div>
+          <div id="card-box"></div>
+        </div>
+      </div>
+
+      <div id="floot">
+        <div>v1.0.0</div>
+        <div>by:逆飞的三文鱼</div>
+      </div>
+      <script src="../../components/titlebar/titlebarRenderer.js"></script>
+      <script src="js/mainPage.js"></script>
+    </div>
+  </body>
+</html>
