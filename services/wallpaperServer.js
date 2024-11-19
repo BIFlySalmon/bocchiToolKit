@@ -9,8 +9,8 @@ function backgroundPageCreate(){
     width: 800,
     height: 600,
     title: "bocchiWallpaper",
-    // frame: false,
-    // fullscreen: true,
+    frame: false,
+    fullscreen: true,
     webPreferences: {
       preload: path.join(__dirname, '..', 'preload.js')
     }
@@ -23,7 +23,7 @@ function backgroundPageCreate(){
 
   // 获取 Electron 窗口句柄
   const hwndElectron = backgroundPage.getNativeWindowHandle();
-  // SetWindowAsWallpaper(hwndElectron);
+  SetWindowAsWallpaper(hwndElectron);
   return backgroundPage;
 }
 

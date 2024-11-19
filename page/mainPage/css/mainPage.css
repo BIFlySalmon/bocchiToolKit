@@ -33,10 +33,9 @@
     align-items: center;
     justify-items: center;
     color: rgb(253, 167, 186);
-    /* padding: 10px; */
 }
 
-.input-container{
+#url-input,#bilibili-input{
     -webkit-user-select:auto;
     -moz-user-select:auto;
     -ms-user-select:auto;
@@ -53,7 +52,14 @@
 .line-button{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    justify-content: space-around;
+    justify-content: center;
     width: 70%;
-    column-gap: 15px;
+    column-gap: 10%;
+}
+
+#file-input{
+    align-self:center;
+}
+#file-path{
+    width: 70%;
 }

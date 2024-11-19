@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bilibiliHint = document.getElementById('bilibili-hint');
 
     // 设置初始状态
-    if (wallpaperType === 'image' || wallpaperType === 'video') {
+    if (wallpaperType === 'img' || wallpaperType === 'video') {
         fileInput.style.display = 'flex';
         urlInput.style.display = 'none';
         bilibiliInput.style.display = 'none';
@@ -43,8 +43,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const radioButtons = document.querySelectorAll('input[name="option"]');
     radioButtons.forEach(radio => {
         radio.addEventListener('change', () => {
+            document.getElementById('file-path').value = '';
+            document.getElementById('url-path').value='';
+            document.getElementById('bilibili-id').value='';
             switch (radio.value) {
-                case 'image':
+                case 'img':
+                    fileInput.style.display = 'flex';
+                    urlInput.style.display = 'none';
+                    bilibiliInput.style.display = 'none';
+                    bilibiliHint.style.display = 'none';
+                    break;
                 case 'video':
                     fileInput.style.display = 'flex';
                     urlInput.style.display = 'none';
@@ -68,7 +76,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-
+/**
+ * 保存设置
+ */
 document.getElementById('settingsSend').addEventListener('click', () => {
     // 获取选中的类型
     const selectedType = document.querySelector('input[name="option"]:checked').value;
@@ -85,7 +95,7 @@ document.getElementById('settingsSend').addEventListener('click', () => {
 
     // 保存设置值
     if (selectedType && pathValue) {
-        console.log(selectedType, pathValue);
+        
         window.settingsAPI.settingsSet('wallpaperType', selectedType);
         window.settingsAPI.settingsSet('wallpaperPath', pathValue);
 
@@ -98,16 +108,33 @@ document.getElementById('settingsSend').addEventListener('click', () => {
 });
 
 
-function chooseFile() {
-    alert("打开文件选择器（功能需结合 JavaScript 文件操作实现）");
-}
+document.getElementById('selectFile').addEventListener('click', async () => {
+    // 获取选中的类型
+    const selectedType = document.querySelector('input[name="option"]:checked').value;
+
+    const filePath = await window.fileAPI.openFile(selectedType);
+    if (filePath) {
+        // 将路径显示到输入框中
+        document.getElementById('file-path').value = filePath;
+
+        // 保存路径到 wallpaperPath
+        // window.settingsAPI.settingsSet('wallpaperPath', filePath);
+    } else {
+        // alert('文件选择已取消');
+    }
+});
 
 
 
 document.getElementById('restoreDesktop').addEventListener('click', () => {
+    document.getElementById('createDesktop').disabled = false;
+    document.getElementById('restoreDesktop').disabled = true;
     window.electronAPI.restoreDesktop();
+    
 });
 
 document.getElementById('createDesktop').addEventListener('click', () => {
+    document.getElementById('createDesktop').disabled = true;
+    document.getElementById('restoreDesktop').disabled = false;
     window.electronAPI.createDesktop();
 });

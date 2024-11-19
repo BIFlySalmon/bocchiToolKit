@@ -9,6 +9,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
     createDesktop: () => ipcRenderer.send('createDesktop')
 });
 
+contextBridge.exposeInMainWorld('fileAPI', {
+  openFile: async (selectedType) => await ipcRenderer.invoke('dialog:openFile', selectedType),
+});
 
 contextBridge.exposeInMainWorld('settingsAPI', {
 

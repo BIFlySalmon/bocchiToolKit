@@ -1,6 +1,5 @@
-const { ipcMain } = require('electron');
-
-const { backgroundPageCreate } = require('./wallpaperServer');
+const { ipcMain, dialog} = require('electron');
+const { backgroundPageCreate} = require('./wallpaperServer');
 const { WallpaperClose } = require('../dllCall/WallpaperSet');
 const { storeManager } = require('./storeManager');
 let backgroundPage;
@@ -24,7 +23,6 @@ function initializeIpcHandlers(mainPage) {
     });
 
     ipcMain.on('restoreDesktop', () => {
-        console.log('restoreDesktop()');//恢复桌面
         if (!(backgroundPage == null)){
             backgroundPage.close();
             WallpaperClose();
@@ -32,10 +30,25 @@ function initializeIpcHandlers(mainPage) {
     });
 
     ipcMain.on('createDesktop', () => {
-        console.log('createDesktop()');
         backgroundPage = backgroundPageCreate();
 
     });
+
+    ipcMain.handle('dialog:openFile', async (evnet, selectedType) => {
+        const result = await dialog.showOpenDialog(mainPage, {
+            title: '选择文件',
+            properties: ['openFile'], // 仅允许选择文件
+            filters: [
+                // { name: '所有文件', extensions: ['*'] },
+                selectedType == 'img'
+                ?
+                { name: '图片文件', extensions: ['png', 'jpg', 'jpeg', 'gif'] }
+                :
+                { name: '视频文件', extensions: ['mp4', 'mkv', 'avi'] }
+            ],
+        });
+        return result.canceled ? null : result.filePaths[0]; // 返回文件路径或 null
+    })
     
     /**
      * electron-store方法
@@ -48,7 +61,6 @@ function initializeIpcHandlers(mainPage) {
 
     // 设置某个设置项的值
     ipcMain.on('settings:set', (event, key, value) => {
-        console.log(key,value);
         storeManager.set(key, value);
     });
 
