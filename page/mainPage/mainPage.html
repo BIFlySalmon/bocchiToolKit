@@ -27,9 +27,34 @@
         <div id="view-box">
           <div id="card-box">
             <div><span>动态壁纸</span></div>
-            <button id="wallpaperSet" type="button">设置</button>
-            <button id="createDesktop" type="button">开启</button>
-            <button id="restoreDesktop" type="button">关闭</button>
+            <div class="wallpaper-set">
+              <div class="radio-group">
+                  <label><input type="radio" name="option" value="image" checked> 图片</label>
+                  <label><input type="radio" name="option" value="video"> 视频</label>
+                  <label><input type="radio" name="option" value="url"> 网址</label>
+                  <label><input type="radio" name="option" value="bilibili"> BiliBili</label>
+              </div>
+              <div class="input-container">
+                  <div class="input-group" id="file-input">
+                      <input type="text" id="file-path" placeholder="请选择文件路径">
+                      <button onclick="chooseFile()">选择文件</button>
+                  </div>
+                  <div class="input-group" id="url-input" style="display: none;">
+                      <input type="text" id="url-path" placeholder="请输入网址">
+                  </div>
+                  <div class="input-group" id="bilibili-input" style="display: none;">
+                      <input type="text" id="bilibili-id" placeholder="请输入BV号">
+                  </div>
+                  <div class="hint" id="bilibili-hint" style="display: none;">示例：BV1kdUxY3E3g</div>
+              </div>
+          </div>
+          <div class="line-button">
+            <!-- <button id="SettingsResetAll" type="button">重置</button> -->
+            <button class="baseButton" id="settingsSend" type="button">设置</button>
+            <button class="baseButton" id="createDesktop" type="button">开启</button>
+            <button class="baseButton" id="restoreDesktop" type="button">关闭</button>
+          </div>
+            
           </div>
           <div id="card-box"></div>
           <div id="card-box"></div>

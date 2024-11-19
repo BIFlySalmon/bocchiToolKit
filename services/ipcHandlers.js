@@ -1,8 +1,8 @@
 const { ipcMain } = require('electron');
 
-const { backgroundPageCreate } = require('../page/backgroundPage/bgPage');
+const { backgroundPageCreate } = require('./wallpaperServer');
 const { WallpaperClose } = require('../dllCall/WallpaperSet');
-// const storeManager = require('./storeManager.mjs');
+const { storeManager } = require('./storeManager');
 let backgroundPage;
 
 function initializeIpcHandlers(mainPage) {
@@ -25,7 +25,7 @@ function initializeIpcHandlers(mainPage) {
 
     ipcMain.on('restoreDesktop', () => {
         console.log('restoreDesktop()');//恢复桌面
-        if (!(backgroundPage === null)){
+        if (!(backgroundPage == null)){
             backgroundPage.close();
             WallpaperClose();
         }
@@ -34,40 +34,43 @@ function initializeIpcHandlers(mainPage) {
     ipcMain.on('createDesktop', () => {
         console.log('createDesktop()');
         backgroundPage = backgroundPageCreate();
+
     });
     
     /**
      * electron-store方法
      */
+
     // 获取某个设置项的值
-    // ipcMain.handle('settings:get', (event, key) => {
-    //     return storeManager.get(key);
-    // });
+    ipcMain.on('settings:get', (event, key) => {
+        event.returnValue = storeManager.get(key); // 返回同步消息
+    });
 
-    // // 设置某个设置项的值
-    // ipcMain.handle('settings:set', (event, key, value) => {
-    //     storeManager.set(key, value);
-    // });
+    // 设置某个设置项的值
+    ipcMain.on('settings:set', (event, key, value) => {
+        console.log(key,value);
+        storeManager.set(key, value);
+    });
 
-    // // 重置某个设置项到默认值
-    // ipcMain.handle('settings:reset', (event, key) => {
-    //     storeManager.reset(key);
-    // });
+    // 重置某个设置项到默认值
+    ipcMain.on('settings:reset', (event, key) => {
+        storeManager.reset(key);
+    });
 
-    // // 重置所有设置项到默认值
-    // ipcMain.handle('settings:resetAll', () => {
-    //     storeManager.resetAll();
-    // });
+    // 重置所有设置项到默认值
+    ipcMain.on('settings:resetAll', () => {
+        storeManager.resetAll();
+    });
 
-    // // 检查某个设置项是否存在
-    // ipcMain.handle('settings:has', (event, key) => {
-    //     return storeManager.has(key);
-    // });
+    // 检查某个设置项是否存在
+    ipcMain.on('settings:has', (event, key) => {
+        event.returnValue = storeManager.has(key);
+    });
 
-    // // 获取所有设置项
-    // ipcMain.handle('settings:getAll', () => {
-    //     return storeManager.getAll();
-    // });
+    // 获取所有设置项
+    ipcMain.on('settings:getAll', (event) => {
+        event.returnValue = storeManager.getAll();
+    });
 
 
 }

@@ -10,22 +10,23 @@ contextBridge.exposeInMainWorld('electronAPI', {
 });
 
 
-contextBridge.exposeInIsolatedWorld('electronStoreAPI',{
-    // 获取某个设置项的值
-  get: (key) => ipcRenderer.invoke('settings:get', key),
+contextBridge.exposeInMainWorld('settingsAPI', {
+
+  // 获取某个设置项的值
+  settingsGet: (key) => ipcRenderer.sendSync('settings:get', key),
 
   // 设置某个设置项的值
-  set: (key, value) => ipcRenderer.invoke('settings:set', key, value),
+  settingsSet: (key, value) => ipcRenderer.send('settings:set', key, value),
 
   // 重置某个设置项到默认值
-  reset: (key) => ipcRenderer.invoke('settings:reset', key),
+  settingsReset: (key) => ipcRenderer.send('settings:reset', key),
 
   // 重置所有设置项到默认值
-  resetAll: () => ipcRenderer.invoke('settings:resetAll'),
+  settingsResetAll: () => ipcRenderer.send('settings:resetAll'),
 
   // 检查某个设置项是否存在
-  has: (key) => ipcRenderer.invoke('settings:has', key),
+  settingsHas: (key) => ipcRenderer.sendSync('settings:has', key),
 
   // 获取所有设置项
-  getAll: () => ipcRenderer.invoke('settings:getAll')
+  settingsGetAll: () => ipcRenderer.sendSync('settings:getAll')
 });

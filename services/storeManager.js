@@ -1,10 +1,11 @@
-// const { Store } = require('electron-store');
-import Store from 'electron-store';
+const Store = require('electron-store');
+
+
 // 定义默认设置
 const defaultSettings = {
   autoLaunch: false, // 是否开机自启
-  wallpaperType: 'img', //img video url
-  wallpaperPath: 'https://i1.hdslb.com/bfs/article/fcf6ae3c13fc0da1d4f215c969a0ffd22a5bb5f1.jpg' // 自定义壁纸路径
+  wallpaperType: 'bilibili', //img video url bilibili
+  wallpaperPath: 'BV1m34y1M7pG' // 自定义壁纸路径
 };
 
 // 初始化 store 实例
@@ -67,4 +68,6 @@ const storeManager = {
   },
 };
 
-module.exports = storeManager;
+module.exports = {
+  storeManager
+};

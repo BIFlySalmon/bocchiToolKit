@@ -23,3 +23,13 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit();
 });
+
+// 禁用window.open打开窗口
+app.on('web-contents-created', (e, webContents) => {
+    // 禁用window.open打开窗口
+    webContents.setWindowOpenHandler((details) => {
+        console.log(details.url);
+        webContents.loadURL(details.url);
+        return { action: 'deny' }
+    })
+});

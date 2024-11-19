@@ -33,4 +33,27 @@
     align-items: center;
     justify-items: center;
     color: rgb(253, 167, 186);
+    /* padding: 10px; */
+}
+
+.input-container{
+    -webkit-user-select:auto;
+    -moz-user-select:auto;
+    -ms-user-select:auto;
+    -o-user-select:auto;
+    user-select:auto;
+}
+
+.baseButton{
+    border-radius: 2px;
+    border: none;
+    background-color: rgb(255, 186, 201);
+}
+
+.line-button{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: space-around;
+    width: 70%;
+    column-gap: 15px;
 }
