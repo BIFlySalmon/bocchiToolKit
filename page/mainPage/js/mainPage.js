@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
     // 设置初始状态
+    autoLaunch();
     loadWallpaperSwitch();
     
     if (wallpaperType === 'img' || wallpaperType === 'video') {
@@ -139,11 +140,36 @@ document.getElementById('wallpaperOn').addEventListener('click', () => {
     loadWallpaperSwitch();
 });
 
+//是否静音
+document.getElementById('muteButton').addEventListener('click', () => {
+    let mute = window.settingsAPI.settingsGet('mute');
+    mute = !mute;
+    window.settingsAPI.settingsSet('mute', mute);
+    console.log(mute);
+    document.getElementById('muteButton').style.backgroundColor = mute ? 'lightgray': 'rgb(255, 186, 201)';
+    window.electronAPI.refreshMute();
+});
+
 
 //更新壁纸状态
 function loadWallpaperSwitch(){
     const wallpaperSwitch = window.settingsAPI.settingsGet('wallpaperSwitch');
+    const mute = window.settingsAPI.settingsGet('mute');
     document.getElementById('wallpaperOn').disabled = wallpaperSwitch;
     document.getElementById('wallpaperOff').disabled = !wallpaperSwitch;
+    document.getElementById('muteButton').style.backgroundColor = mute ? 'lightgray': 'rgb(255, 186, 201)';
     window.electronAPI.wallpaperRefresh();
 }
+
+async function autoLaunch(){
+    const isEnabled = await window.autoLaunchAPI.isAutoLaunchEnabled();
+    document.getElementById('autoLaunchToggle').checked = isEnabled;
+}
+
+// 监听自启动开关的变化
+document.getElementById('autoLaunchToggle').addEventListener('change', async (event) => {
+    const enable = event.target.checked;
+    await window.autoLaunchAPI.setAutoLaunch(enable);
+    console.log(`Auto launch ${enable ? 'enabled' : 'disabled'}`);
+});
+

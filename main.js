@@ -14,7 +14,12 @@ app.whenReady().then(() => {
     if (!gotTheLock) {
         quitApp();
     }
-  
+    //设置开机自启应用工作路径
+    // if (app.isPackaged) {
+    //     process.chdir(process.resourcesPath);
+    //     process.chdir('..');
+    // }
+    
     mainPage = createMainWindow();
     tray = setupTray(mainPage, quitApp);
     initializeIpcHandlers(mainPage);

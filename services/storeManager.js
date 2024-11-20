@@ -3,7 +3,7 @@ const Store = require('electron-store');
 
 // 定义默认设置
 const defaultSettings = {
-  autoLaunch: false, // 是否开机自启
+  mute: false, //壁纸是否静音
   wallpaperSwitch: false, //是否开启壁纸
   wallpaperType: 'bilibili', //img video url bilibili
   wallpaperPath: 'BV1m34y1M7pG' // 自定义壁纸路径

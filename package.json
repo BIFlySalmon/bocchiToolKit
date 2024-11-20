@@ -35,12 +35,9 @@
     "copyright": "逆飞的三文鱼",
     "files": [
       "**/*",
-      "./css",
-      "./dll",
-      "./html",
-      "./js",
-      "./res"
+      "node_modules/**/*"
     ],
+    "asarUnpack": [],
     "directories": {
       "output": "electron-build"
     },

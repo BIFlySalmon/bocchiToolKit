@@ -1,9 +1,19 @@
-
-const koffi = require('koffi');
+const { app } = require('electron');
 const path = require('node:path');
-// 构建 DLL 路径
-const DLLPath = path.join(process.cwd(), 'resources', 'dll', 'WallpaperSet.dll');
+let koffi;
+// if (app.isPackaged) {
+//     koffi = require(path.join(process.resourcesPath, 'app.asar.unpacked', 'node_modules', 'koffi'));
+// }else{
+    koffi = require('koffi');
+// }
 
+// 构建 DLL 路径
+let DLLPath;
+if (app.isPackaged) {
+    DLLPath = path.join(process.resourcesPath, 'dll', 'WallpaperSet.dll');
+}else{
+    DLLPath = path.join(process.cwd(), 'resources', 'dll', 'WallpaperSet.dll');
+}
 
 const WallpaperSet = koffi.load(DLLPath);
 

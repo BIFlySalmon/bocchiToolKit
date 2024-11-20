@@ -1,12 +1,8 @@
-document.getElementById('wallpaperVideo').addEventListener('click', () => {
-    
-    console.log('壁纸类型:', response);
-});
-
 document.addEventListener('DOMContentLoaded', function() {
     let wallpaperType = window.settingsAPI.settingsGet('wallpaperType');
     let wallpaperPath = window.settingsAPI.settingsGet('wallpaperPath');
-    
+    window.electronAPI.refreshMute();
+
     switch(wallpaperType)
     {
         case 'img':
@@ -36,3 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 });
+
+// window.electronAPI.onMessage((event, message) => {
+//     document.getElementById('wallpaperVideo').muted = message.data;
+// });

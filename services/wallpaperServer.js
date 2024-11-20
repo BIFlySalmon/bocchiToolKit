@@ -4,7 +4,11 @@ const { storeManager } = require('./storeManager');
 const { SetWindowAsWallpaper, WallpaperCloseDLL } = require('../dllCall/WallpaperSet');
 let backgroundPage;
 
-
+function refreshMute(){
+  if (!(backgroundPage == null || backgroundPage == undefined)){
+    backgroundPage.webContents.setAudioMuted(storeManager.get('mute'));
+  }
+}
 
 function wallpaperRefresh(){
   wallpaperClose();
@@ -50,5 +54,6 @@ function backgroundPageCreate(){
 module.exports = {
   wallpaperRefresh,
   wallpaperClose,
-  backgroundPageCreate
+  backgroundPageCreate,
+  refreshMute
 }

@@ -1,7 +1,7 @@
 const { ipcMain, dialog} = require('electron');
-const { backgroundPageCreate, wallpaperClose, wallpaperRefresh} = require('./wallpaperServer');
+const { backgroundPageCreate, wallpaperClose, wallpaperRefresh, refreshMute} = require('./wallpaperServer');
 const { storeManager } = require('./storeManager');
-let backgroundPage;
+const { setAutoLaunch, isAutoLaunchEnabled } = require('./autoLaunch');
 
 function initializeIpcHandlers(mainPage) {
 
@@ -84,6 +84,21 @@ function initializeIpcHandlers(mainPage) {
     });
 
 
+
+    // 处理自启动IPC请求
+    ipcMain.handle('set-auto-launch', (event, enable) => {
+        setAutoLaunch(enable);
+    });
+
+    ipcMain.handle('get-auto-launch-status', () => {
+        return isAutoLaunchEnabled();
+    });
+
+
+    ipcMain.on('refreshMute', () => {
+        refreshMute();
+        // backgroundPage.webContents.send('refreshMute', { data: storeManager.get('mute') });
+    });
 }
 
 module.exports = { initializeIpcHandlers };

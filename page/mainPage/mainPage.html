@@ -39,13 +39,14 @@
                       <input class="luminous" type="text" id="file-path" placeholder="请选择文件路径" disabled="true">
                       <button class="baseButton luminous" id="selectFile"><span class="oneline">选择</span><span class="oneline">文件</span></button>
                   </div>
-                  <div class="input-group luminous" id="url-input" style="display: none;">
+                  <div class="input-group luminous" id="url-input" >
                       <input class="baseInput" type="text" id="url-path" placeholder="请输入网址">
                   </div>
-                  <div class="input-group luminous" id="bilibili-input" style="display: none;">
+                  <div class="input-group luminous" id="bilibili-input" >
                       <input class="baseInput" type="text" id="bilibili-id" placeholder="请输入BV号">
                   </div>
-                  <div class="hint" id="bilibili-hint" style="display: none;">示例：BV1kdUxY3E3g</div>
+                  <div class="hint" id="bilibili-hint" >示例：BV1kdUxY3E3g</div>
+                  <div><button class="baseButton luminous" id="muteButton" type="button">声音</button></div>
               </div>
           </div>
           <div class="line-button">
@@ -56,7 +57,11 @@
           </div>
             
           </div>
-          <div id="card-box"></div>
+          <div id="card-box">
+            <label>
+              <input type="checkbox" id="autoLaunchToggle" >开机自启动</label>
+            </label>
+          </div>
           <div id="card-box"></div>
           <div id="card-box"></div>
           <div id="card-box"></div>

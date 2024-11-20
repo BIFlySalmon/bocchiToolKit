@@ -7,7 +7,15 @@ contextBridge.exposeInMainWorld('electronAPI', {
     winClose: () => ipcRenderer.send('window-close'),
     // restoreDesktop: () => ipcRenderer.send('restoreDesktop'),
     // createDesktop: () => ipcRenderer.send('createDesktop'),
-    wallpaperRefresh: () => ipcRenderer.send('wallpaperRefresh')
+    wallpaperRefresh: () => ipcRenderer.send('wallpaperRefresh'),
+    refreshMute: () => ipcRenderer.send('refreshMute'),
+    // onMessage: (callback) => ipcRenderer.on('refreshMute', callback),
+});
+
+
+contextBridge.exposeInMainWorld('autoLaunchAPI', {
+  setAutoLaunch: (enable) => ipcRenderer.invoke('set-auto-launch', enable),
+  isAutoLaunchEnabled: () => ipcRenderer.invoke('get-auto-launch-status'),
 });
 
 contextBridge.exposeInMainWorld('fileAPI', {
