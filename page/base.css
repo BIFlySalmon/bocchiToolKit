@@ -9,6 +9,11 @@ body, html {
     -o-user-select:none;
     user-select:none;
 }
+
+html {
+    font-size: 2vw; /* 基于视口宽度动态调整根字体大小 */
+  }
+
 .container {
     display: grid;
     grid-template-rows: min(10%, 50px)  auto  25px;

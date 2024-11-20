@@ -5,10 +5,16 @@ const { setupTray } = require('./services/trayManager');
 const { initializeIpcHandlers } = require('./services/ipcHandlers');
 const { quitApp } = require('./utils/appUtils');
 
+const gotTheLock = app.requestSingleInstanceLock()
 let mainPage;
 let tray;
 
 app.whenReady().then(() => {
+    //防止程序多开
+    if (!gotTheLock) {
+        quitApp();
+    }
+  
     mainPage = createMainWindow();
     tray = setupTray(mainPage, quitApp);
     initializeIpcHandlers(mainPage);

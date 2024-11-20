@@ -5,8 +5,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
     winMinimize: () => ipcRenderer.send('window-minimize'),
     winMaximize: () => ipcRenderer.send('window-maximize'),
     winClose: () => ipcRenderer.send('window-close'),
-    restoreDesktop: () => ipcRenderer.send('restoreDesktop'),
-    createDesktop: () => ipcRenderer.send('createDesktop')
+    // restoreDesktop: () => ipcRenderer.send('restoreDesktop'),
+    // createDesktop: () => ipcRenderer.send('createDesktop'),
+    wallpaperRefresh: () => ipcRenderer.send('wallpaperRefresh')
 });
 
 contextBridge.exposeInMainWorld('fileAPI', {

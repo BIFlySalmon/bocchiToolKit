@@ -12,17 +12,17 @@ document.addEventListener('DOMContentLoaded', function() {
         case 'img':
             document.getElementById('wallpaperVideo').style.display="none";
             document.getElementById('wallpaperIframe').style.display="none";
+            document.getElementById('wallpaperbilibili').style.display="none";
             document.getElementById('wallpaperImg').src = wallpaperPath;
             break;
         case 'video':
             document.getElementById('wallpaperImg').style.display="none";
             document.getElementById('wallpaperIframe').style.display="none";
+            document.getElementById('wallpaperbilibili').style.display="none";
             document.getElementById('wallpaperVideo').src = wallpaperPath;
             break;
         case 'url':
-            document.getElementById('wallpaperImg').style.display="none";
-            document.getElementById('wallpaperVideo').style.display="none";
-            document.getElementById('wallpaperIframe').src = wallpaperPath;
+            window.location.href = wallpaperPath;
             break;
         case 'bilibili':
             document.getElementById('wallpaperImg').style.display="none";

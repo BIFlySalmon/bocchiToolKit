@@ -1,11 +1,30 @@
 const { BrowserWindow } = require('electron'); // 确保引用 electron 模块
 const path = require('node:path');
-const { SetWindowAsWallpaper } = require('../dllCall/WallpaperSet');
+const { storeManager } = require('./storeManager');
+const { SetWindowAsWallpaper, WallpaperCloseDLL } = require('../dllCall/WallpaperSet');
+let backgroundPage;
+
+
+
+function wallpaperRefresh(){
+  wallpaperClose();
+  return storeManager.get('wallpaperSwitch')? backgroundPageCreate(): backgroundPage
+}
+
+function wallpaperClose(){
+  // console.log(backgroundPage);
+  if (!(backgroundPage == null || backgroundPage == undefined)){
+      backgroundPage.close();
+      WallpaperCloseDLL();
+      backgroundPage = null;
+  }
+  return backgroundPage;
+}
 
 // 动态壁纸
 function backgroundPageCreate(){
 
-  const backgroundPage = new BrowserWindow({
+  backgroundPage= new BrowserWindow({
     width: 800,
     height: 600,
     title: "bocchiWallpaper",
@@ -24,9 +43,12 @@ function backgroundPageCreate(){
   // 获取 Electron 窗口句柄
   const hwndElectron = backgroundPage.getNativeWindowHandle();
   SetWindowAsWallpaper(hwndElectron);
+
   return backgroundPage;
 }
 
 module.exports = {
+  wallpaperRefresh,
+  wallpaperClose,
   backgroundPageCreate
 }

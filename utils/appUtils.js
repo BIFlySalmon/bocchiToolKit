@@ -1,8 +1,8 @@
-const { WallpaperClose } = require('../dllCall/WallpaperSet');
+const { WallpaperCloseDLL } = require('../dllCall/WallpaperSet');
 let quitFlag = false;
 
 function quitApp() {
-    WallpaperClose();
+    WallpaperCloseDLL();
     quitFlag = true;
     require('electron').app.quit();
 }

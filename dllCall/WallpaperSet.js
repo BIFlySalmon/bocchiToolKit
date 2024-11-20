@@ -13,11 +13,11 @@ const HWND = koffi.alias('HWND', HANDLE);
 
 // 创建 WorkerW 窗口的函数
 const SetWindowAsWallpaper = WallpaperSet.func('void SetWindowAsWallpaper(HWND hwnd)', 'pointer');
-const WallpaperClose = WallpaperSet.func('void WallpaperClose()');
+const WallpaperCloseDLL = WallpaperSet.func('void WallpaperClose()');
 
 
 
 module.exports = {
     SetWindowAsWallpaper,
-    WallpaperClose
+    WallpaperCloseDLL
 };

@@ -1,6 +1,5 @@
 const { ipcMain, dialog} = require('electron');
-const { backgroundPageCreate} = require('./wallpaperServer');
-const { WallpaperClose } = require('../dllCall/WallpaperSet');
+const { backgroundPageCreate, wallpaperClose, wallpaperRefresh} = require('./wallpaperServer');
 const { storeManager } = require('./storeManager');
 let backgroundPage;
 
@@ -22,16 +21,16 @@ function initializeIpcHandlers(mainPage) {
         mainPage.close();
     });
 
-    ipcMain.on('restoreDesktop', () => {
-        if (!(backgroundPage == null)){
-            backgroundPage.close();
-            WallpaperClose();
-        }
-    });
+    // ipcMain.on('restoreDesktop', () => {
+    //     backgroundPage = wallpaperClose();
+    // });
 
-    ipcMain.on('createDesktop', () => {
-        backgroundPage = backgroundPageCreate();
+    // ipcMain.on('createDesktop', () => {
+    //     backgroundPage = backgroundPageCreate();
+    // });
 
+    ipcMain.on('wallpaperRefresh', () => {
+        backgroundPage = wallpaperRefresh();
     });
 
     ipcMain.handle('dialog:openFile', async (evnet, selectedType) => {

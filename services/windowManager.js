@@ -14,7 +14,7 @@ function createMainWindow() {
             preload: path.join(__dirname, '..', 'preload.js')
         }
     });
-
+    mainPage.setAspectRatio(1.4);
     mainPage.loadFile(path.join(__dirname, '..', 'page', 'mainPage', 'mainPage.html'));
     mainPage.removeMenu();
 
