@@ -30,7 +30,7 @@ function createMainWindow() {
         }else{
             mainPage.show() // 初始化后再显示，防止启动白屏
         }
-    })
+    });
 
     mainPage.on('maximize', () => {
         mainPage.webContents.send('window-is-maximized', true);

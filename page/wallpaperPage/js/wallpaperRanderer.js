@@ -36,3 +36,17 @@ document.addEventListener('DOMContentLoaded', function() {
 // window.electronAPI.onMessage((event, message) => {
 //     document.getElementById('wallpaperVideo').muted = message.data;
 // });
+
+
+window.electronAPI.onfindMaxWinMsg((event, message) => {
+    videoPause(message.data);
+});
+
+
+function videoPause(pauseFlag){
+    if (pauseFlag){
+        document.getElementById('wallpaperVideo').pause();
+    } else {
+        document.getElementById('wallpaperVideo').play();
+    }
+}

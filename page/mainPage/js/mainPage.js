@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('file-path').value = wallpaperPath || '';
         document.querySelector(`input[value="${wallpaperType}"]`).checked = true;
         muteButton.style.display= wallpaperType === 'img'?"none":"inline-block"; 
-        console.log(wallpaperType, document.getElementById('muteButton').style.display);
     } else if (wallpaperType === 'url') {
         fileInput.style.display = 'none';
         urlInput.style.display = 'flex';
@@ -152,7 +151,6 @@ document.getElementById('muteButton').addEventListener('click', () => {
     let mute = window.settingsAPI.settingsGet('mute');
     mute = !mute;
     window.settingsAPI.settingsSet('mute', mute);
-    console.log(mute);
     document.getElementById('muteButton').style.backgroundColor = mute ? 'lightgray': 'rgb(255, 186, 201)';
     window.electronAPI.refreshMute();
 });
@@ -162,9 +160,12 @@ document.getElementById('muteButton').addEventListener('click', () => {
 function loadWallpaperSwitch(isStartLoad){
     const wallpaperSwitch = window.settingsAPI.settingsGet('wallpaperSwitch');
     const mute = window.settingsAPI.settingsGet('mute');
+    const pauseSwitch = window.settingsAPI.settingsGet('pauseSwitch');
     document.getElementById('wallpaperOn').disabled = wallpaperSwitch;
     document.getElementById('wallpaperOff').disabled = !wallpaperSwitch;
     document.getElementById('muteButton').style.backgroundColor = mute ? 'lightgray': 'rgb(255, 186, 201)';
+    document.getElementById('pauseButton').checked  = pauseSwitch;
+
     if(!isStartLoad){
         window.electronAPI.wallpaperRefresh();
     }
@@ -185,7 +186,6 @@ async function autoLaunch(){
 document.getElementById('autoLaunchToggle').addEventListener('change', async (event) => {
     const enable = event.target.checked;
     await window.autoLaunchAPI.setAutoLaunch(enable);
-    console.log(`Auto launch ${enable ? 'enabled' : 'disabled'}`);
 });
 
 //保存自启动脚本
@@ -198,3 +198,6 @@ document.getElementById('runAutoLaunchBat').addEventListener('click', () => {
     window.electronAPI.executeBat();
 });
 
+document.getElementById('pauseButton').addEventListener('click', () => {
+    window.settingsAPI.settingsSet('pauseSwitch', document.getElementById('pauseButton').checked );
+});

@@ -2,6 +2,9 @@ const { BrowserWindow } = require('electron'); // 确保引用 electron 模块
 const path = require('node:path');
 const { storeManager } = require('./storeManager');
 const { SetWindowAsWallpaper, WallpaperCloseDLL } = require('../dllCall/WallpaperSet');
+const { startfindMaxWinMonitoring , stopfindMaxWinMonitoring } = require('./findMaxWinWorker');
+
+
 let backgroundPage;
 
 function refreshMute(){
@@ -16,8 +19,8 @@ function wallpaperRefresh(){
 }
 
 function wallpaperClose(){
-  // console.log(backgroundPage);
   if (!(backgroundPage == null || backgroundPage == undefined)){
+      stopfindMaxWinMonitoring();
       backgroundPage.close();
       WallpaperCloseDLL();
       backgroundPage = null;
@@ -48,6 +51,9 @@ function backgroundPageCreate(){
   const hwndElectron = backgroundPage.getNativeWindowHandle();
   SetWindowAsWallpaper(hwndElectron);
 
+  backgroundPage.on('ready-to-show' , () => {
+    startfindMaxWinMonitoring(backgroundPage);
+  })
   return backgroundPage;
 }
 

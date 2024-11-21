@@ -10,7 +10,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
     wallpaperRefresh: () => ipcRenderer.send('wallpaperRefresh'),
     refreshMute: () => ipcRenderer.send('refreshMute'),
     // onMessage: (callback) => ipcRenderer.on('refreshMute', callback),
-    executeBat: () => ipcRenderer.send('execute-bat')  //测试运行启动脚本
+    executeBat: () => ipcRenderer.send('execute-bat'),  //测试运行启动脚本
+    onfindMaxWinMsg: (callback) => ipcRenderer.on('findMaxWinMsg', callback)
 });
 
 

@@ -7,3 +7,9 @@
 body{
     background-color: black;
 }
+
+#wallpaperContent{
+    height: 100%;
+    width: auto;
+    text-align: center;
+}
