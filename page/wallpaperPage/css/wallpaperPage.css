@@ -1,6 +1,7 @@
 #wallpaperImg, #wallpaperVideo, #wallpaperIframe, #wallpaperbilibili{
-    width: 100%;
-    height: 100%;
+    height: 100%; /* 高度占满窗口 */
+    width: auto;  /* 宽度自动调整，可能溢出 */
+    object-fit: cover; /* 视频溢出宽度时会被裁剪 */
 }
 
 body{

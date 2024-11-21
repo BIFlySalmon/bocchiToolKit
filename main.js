@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require('electron');
 
+const { wallpaperRefresh } = require('./services/wallpaperServer');
 const { createMainWindow } = require('./services/windowManager');
 const { setupTray } = require('./services/trayManager');
 const { initializeIpcHandlers } = require('./services/ipcHandlers');
@@ -20,6 +21,7 @@ app.whenReady().then(() => {
     //     process.chdir('..');
     // }
     
+    wallpaperRefresh(); //优先启动壁纸，优化自启动体验
     mainPage = createMainWindow();
     tray = setupTray(mainPage, quitApp);
     initializeIpcHandlers(mainPage);

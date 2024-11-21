@@ -1,5 +1,5 @@
 const { ipcMain } = require('electron');
-const { backgroundPageCreate, wallpaperClose, wallpaperRefresh, refreshMute} = require('./wallpaperServer');
+const { wallpaperRefresh, refreshMute} = require('./wallpaperServer');
 const { storeManager } = require('./storeManager');
 const { setAutoLaunch, isAutoLaunchEnabled } = require('./autoLaunch');
 const { wallpaperFileSelect } = require('./fileManager');

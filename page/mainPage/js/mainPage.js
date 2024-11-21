@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 设置初始状态
     autoLaunch();
-    loadWallpaperSwitch();
+    loadWallpaperSwitch(true);
     loadAutoLaunthBatSwitch();
     
     if (wallpaperType === 'img' || wallpaperType === 'video') {
@@ -130,7 +130,7 @@ document.getElementById('settingsSend').addEventListener('click', () => {
         // 提示用户保存成功
         alert('设置已保存！');
 
-        loadWallpaperSwitch();
+        loadWallpaperSwitch(false);
     } else {
         // 提示用户输入完整信息
         alert('请填写完整的路径信息！');
@@ -139,12 +139,12 @@ document.getElementById('settingsSend').addEventListener('click', () => {
 
 document.getElementById('wallpaperOff').addEventListener('click', () => {
     window.settingsAPI.settingsSet('wallpaperSwitch', false);
-    loadWallpaperSwitch();
+    loadWallpaperSwitch(false);
 });
 
 document.getElementById('wallpaperOn').addEventListener('click', () => {
     window.settingsAPI.settingsSet('wallpaperSwitch', true);
-    loadWallpaperSwitch();
+    loadWallpaperSwitch(false);
 });
 
 //是否静音
@@ -159,13 +159,15 @@ document.getElementById('muteButton').addEventListener('click', () => {
 
 
 //更新窗口壁纸设置
-function loadWallpaperSwitch(){
+function loadWallpaperSwitch(isStartLoad){
     const wallpaperSwitch = window.settingsAPI.settingsGet('wallpaperSwitch');
     const mute = window.settingsAPI.settingsGet('mute');
     document.getElementById('wallpaperOn').disabled = wallpaperSwitch;
     document.getElementById('wallpaperOff').disabled = !wallpaperSwitch;
     document.getElementById('muteButton').style.backgroundColor = mute ? 'lightgray': 'rgb(255, 186, 201)';
-    window.electronAPI.wallpaperRefresh();
+    if(!isStartLoad){
+        window.electronAPI.wallpaperRefresh();
+    }
 }
 
 //更新窗口自启动脚本设置
