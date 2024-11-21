@@ -1,7 +1,10 @@
-const { ipcMain, dialog} = require('electron');
+const { ipcMain } = require('electron');
 const { backgroundPageCreate, wallpaperClose, wallpaperRefresh, refreshMute} = require('./wallpaperServer');
 const { storeManager } = require('./storeManager');
 const { setAutoLaunch, isAutoLaunchEnabled } = require('./autoLaunch');
+const { wallpaperFileSelect } = require('./fileManager');
+const { executeBat } = require('./batManager');
+
 
 function initializeIpcHandlers(mainPage) {
 
@@ -34,20 +37,13 @@ function initializeIpcHandlers(mainPage) {
     });
 
     ipcMain.handle('dialog:openFile', async (evnet, selectedType) => {
-        const result = await dialog.showOpenDialog(mainPage, {
-            title: '选择文件',
-            properties: ['openFile'], // 仅允许选择文件
-            filters: [
-                // { name: '所有文件', extensions: ['*'] },
-                selectedType == 'img'
-                ?
-                { name: '图片文件', extensions: ['png', 'jpg', 'jpeg', 'gif'] }
-                :
-                { name: '视频文件', extensions: ['mp4', 'mkv', 'avi'] }
-            ],
-        });
-        return result.canceled ? null : result.filePaths[0]; // 返回文件路径或 null
-    })
+        return await wallpaperFileSelect(mainPage,selectedType);
+    });
+
+    //执行bat脚本
+    ipcMain.on('execute-bat', () => {
+        executeBat();
+    });
     
     /**
      * electron-store方法

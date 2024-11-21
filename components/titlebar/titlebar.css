@@ -8,6 +8,7 @@
   -webkit-app-region: drag;
   padding-left: 15px;
   padding-right: 15px;
+  font-size: 1rem;
 }
 
 .title-bar-left {
@@ -37,3 +38,5 @@
   cursor: pointer;
   -webkit-app-region: no-drag; /* 防止按钮区域响应拖动 */
 }
+
+

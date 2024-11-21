@@ -58,9 +58,21 @@
             
           </div>
           <div id="card-box">
-            <label>
-              <input type="checkbox" id="autoLaunchToggle" >开机自启动</label>
-            </label>
+            <div>
+              <span class="card-box-title luminousFont">开机启动</span>
+            </div>
+            <div id="autoLaunchBox">
+              <label>
+                <input type="checkbox" id="autoLaunchToggle" ><span class="checkboxFont">开机自启动</span></label>
+              </label>
+              <br/>
+              <textarea class="baseInput luminous" name="startBat" id="batInput" placeholder="开机启动脚本(bat)"></textarea>
+              <button class="baseButton luminous" id="saveAutoLaunchBat" type="button" >保存</button>
+              <button class="baseButton luminous" id="runAutoLaunchBat" type="button" >测试</button>
+            </div>
+            <div>
+              
+            </div>
           </div>
           <div id="card-box"></div>
           <div id="card-box"></div>

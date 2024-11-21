@@ -1,5 +1,6 @@
 const { app } = require('electron');
-
+const { exec } = require('child_process');
+ 
 // 设置开机自启动
 function setAutoLaunch(enable) {
   app.setLoginItemSettings({
@@ -18,5 +19,24 @@ function isAutoLaunchEnabled() {
   return settings.openAtLogin;
 }
 
+function autoLaunthBat(bat){
+  // 示例：执行cmd指令，这里以'ipconfig'为例
+  exec(bat, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`执行的错误: ${error}`);
+      return;
+    }
+    console.log(`标准输出: ${stdout}`);
+    if (stderr) {
+      console.error(`标准错误: ${stderr}`);
+    }
+  });
+}
+
+
 // 导出功能供渲染进程调用
-module.exports = { setAutoLaunch, isAutoLaunchEnabled };
+module.exports = { 
+  setAutoLaunch, 
+  isAutoLaunchEnabled,
+  autoLaunthBat
+};

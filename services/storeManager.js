@@ -6,7 +6,8 @@ const defaultSettings = {
   mute: false, //壁纸是否静音
   wallpaperSwitch: false, //是否开启壁纸
   wallpaperType: 'bilibili', //img video url bilibili
-  wallpaperPath: 'BV1m34y1M7pG' // 自定义壁纸路径
+  wallpaperPath: 'BV1m34y1M7pG', // 自定义壁纸路径
+  autoLaunthBat: '',
 };
 
 // 初始化 store 实例

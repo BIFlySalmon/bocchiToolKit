@@ -14,11 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlInput = document.getElementById('url-input');
     const bilibiliInput = document.getElementById('bilibili-input');
     const bilibiliHint = document.getElementById('bilibili-hint');
-
+    const muteButton = document.getElementById('muteButton');
     
     // 设置初始状态
     autoLaunch();
     loadWallpaperSwitch();
+    loadAutoLaunthBatSwitch();
     
     if (wallpaperType === 'img' || wallpaperType === 'video') {
         fileInput.style.display = 'flex';
@@ -27,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
         bilibiliHint.style.display = 'none';
         document.getElementById('file-path').value = wallpaperPath || '';
         document.querySelector(`input[value="${wallpaperType}"]`).checked = true;
+        muteButton.style.display= wallpaperType === 'img'?"none":"inline-block"; 
+        console.log(wallpaperType, document.getElementById('muteButton').style.display);
     } else if (wallpaperType === 'url') {
         fileInput.style.display = 'none';
         urlInput.style.display = 'flex';
@@ -56,24 +59,28 @@ document.addEventListener('DOMContentLoaded', () => {
                     urlInput.style.display = 'none';
                     bilibiliInput.style.display = 'none';
                     bilibiliHint.style.display = 'none';
+                    muteButton.style.display= 'none';
                     break;
                 case 'video':
                     fileInput.style.display = 'flex';
                     urlInput.style.display = 'none';
                     bilibiliInput.style.display = 'none';
                     bilibiliHint.style.display = 'none';
+                    muteButton.style.display= 'inline-block';
                     break;
                 case 'url':
                     fileInput.style.display = 'none';
                     urlInput.style.display = 'flex';
                     bilibiliInput.style.display = 'none';
                     bilibiliHint.style.display = 'none';
+                    muteButton.style.display= 'inline-block';
                     break;
                 case 'bilibili':
                     fileInput.style.display = 'none';
                     urlInput.style.display = 'none';
                     bilibiliInput.style.display = 'flex';
                     bilibiliHint.style.display = 'block';
+                    muteButton.style.display= 'inline-block';
                     break;
             }
         });
@@ -151,7 +158,7 @@ document.getElementById('muteButton').addEventListener('click', () => {
 });
 
 
-//更新壁纸状态
+//更新窗口壁纸设置
 function loadWallpaperSwitch(){
     const wallpaperSwitch = window.settingsAPI.settingsGet('wallpaperSwitch');
     const mute = window.settingsAPI.settingsGet('mute');
@@ -159,6 +166,12 @@ function loadWallpaperSwitch(){
     document.getElementById('wallpaperOff').disabled = !wallpaperSwitch;
     document.getElementById('muteButton').style.backgroundColor = mute ? 'lightgray': 'rgb(255, 186, 201)';
     window.electronAPI.wallpaperRefresh();
+}
+
+//更新窗口自启动脚本设置
+function loadAutoLaunthBatSwitch(){
+    const autoLaunthBat = window.settingsAPI.settingsGet('autoLaunthBat');
+    document.getElementById('batInput').value = autoLaunthBat;
 }
 
 async function autoLaunch(){
@@ -171,5 +184,15 @@ document.getElementById('autoLaunchToggle').addEventListener('change', async (ev
     const enable = event.target.checked;
     await window.autoLaunchAPI.setAutoLaunch(enable);
     console.log(`Auto launch ${enable ? 'enabled' : 'disabled'}`);
+});
+
+//保存自启动脚本
+document.getElementById('saveAutoLaunchBat').addEventListener('click', () => {
+    window.settingsAPI.settingsSet('autoLaunthBat', document.getElementById('batInput').value);
+    alert('已保存');
+});
+
+document.getElementById('runAutoLaunchBat').addEventListener('click', () => {
+    window.electronAPI.executeBat();
 });
 
