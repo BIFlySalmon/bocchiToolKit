@@ -4,13 +4,17 @@ const { app } = require('electron');
 function setAutoLaunch(enable) {
   app.setLoginItemSettings({
     openAtLogin: enable, // 是否开机自启动
-    path: app.getPath('exe'), // 应用程序的路径
+    path: '"' + app.getPath('exe') + '"', // 应用程序的路径
+    args: ['-autoLaunch'], // 通过 args 指定启动时的额外参数
   });
 }
 
 // 检查当前开机自启状态
 function isAutoLaunchEnabled() {
-  const settings = app.getLoginItemSettings();
+  const settings = app.getLoginItemSettings({
+    path: '"' + app.getPath('exe') + '"', // 应用程序的路径
+    args: ['-autoLaunch'], // 通过 args 指定启动时的额外参数
+  });
   return settings.openAtLogin;
 }
 

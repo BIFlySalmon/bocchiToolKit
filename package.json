@@ -50,6 +50,7 @@
       "oneClick": false,
       "allowElevation": true,
       "allowToChangeInstallationDirectory": true,
+      "include": "installer.nsh",
       "installerIcon": "./icon256.ico",
       "uninstallerIcon": "./icon256.ico",
       "installerHeaderIcon": "./icon256.ico",
