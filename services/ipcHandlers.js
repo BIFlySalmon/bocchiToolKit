@@ -4,6 +4,10 @@ const { storeManager } = require('./storeManager');
 const { setAutoLaunch, isAutoLaunchEnabled } = require('./autoLaunch');
 const { wallpaperFileSelect } = require('./fileManager');
 const { executeBat } = require('./batManager');
+const { getVersion, getAuthor } = require('../utils/getAppInfo');
+const { updateShortcut } = require('./shortcutKeyManager');
+const { refreshWindows, getlive2dPath, nextLive2D } = require('./posterGirlManager');
+const { mouseThroughManager, showcontextmenu } = require('./windowManager');
 
 
 function initializeIpcHandlers(mainPage) {
@@ -95,6 +99,60 @@ function initializeIpcHandlers(mainPage) {
         refreshMute();
         // backgroundPage.webContents.send('refreshMute', { data: storeManager.get('mute') });
     });
+
+
+    ipcMain.on('getAppAuthor', (event) =>{
+        event.returnValue = getAuthor();
+    });
+
+    
+    ipcMain.on('getAppVersion', (event) =>{
+        event.returnValue = getVersion();
+    });
+
+    ipcMain.on('updateShortcut', (event, action, newShortcut) =>{
+        updateShortcut(action, newShortcut);
+    });
+
+
+    ipcMain.on('refreshWindows', () => {
+        refreshWindows();
+    });
+
+    ipcMain.on('getlive2dPath', (event) => {
+        event.returnValue = getlive2dPath();
+    });
+
+
+    ipcMain.on('nextLive2D', () =>{
+        nextLive2D();
+    });
+    
+
+    // 监听渲染进程发送的点击事件
+    ipcMain.on('click-event', () => {
+        // console.log('click-event');
+        // mouseThroughManager._disableMouseEvents();
+
+        // setTimeout(() => {
+        //     mouseThroughManager._enableMouseEvents();
+        // }, 2000);
+    });
+
+    ipcMain.on('sendMoseEvent', (event, moseEvent) => {
+        // console.log(moseEvent);
+        // if (moseEvent === 'mouseenter'){
+        //     mouseThroughManager._disableMouseEvents();
+        // }else{
+        //     mouseThroughManager._enableMouseEvents();
+        // }
+    });
+
+
+    ipcMain.on('showContextMenu', (event, position) => {
+        showcontextmenu(position)
+    });
+    
 }
 
 module.exports = { initializeIpcHandlers };

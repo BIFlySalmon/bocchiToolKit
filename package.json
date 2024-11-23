@@ -26,8 +26,9 @@
     "electron-builder": "^25.1.8"
   },
   "dependencies": {
-    "koffi": "^2.9.2",
-    "electron-store": "^7.0.3"
+    "electron-screenshots": "^0.5.27",
+    "electron-store": "^7.0.3",
+    "koffi": "^2.9.2"
   },
   "build": {
     "productName": "波奇工具箱",
@@ -42,10 +43,16 @@
       "output": "electron-build"
     },
     "asar": true,
-    "extraResources": {
-      "from": "./resources/dll/",
-      "to": "dll"
-    },
+    "extraResources": [
+      {
+        "from": "./resources/dll/",
+        "to": "dll"
+      },
+      {
+        "from": "./resources/live2d-widget-0.9.0/",
+        "to": "live2d-widget-0.9.0"
+      }
+    ],
     "nsis": {
       "oneClick": false,
       "allowElevation": true,

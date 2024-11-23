@@ -15,6 +15,7 @@ function startfindMaxWinMonitoring(backgroundPage) {
             }
             try {
                 const result = HasMaximizedWindow() === 0 ? false : true;
+                // console.log('result:', result);console.log('flag:', flag);
                 if (flag !== result) {
                     flag = result;
                     backgroundPage.webContents.send('findMaxWinMsg', { data: result }); 

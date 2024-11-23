@@ -15,7 +15,7 @@ function refreshMute(){
 
 function wallpaperRefresh(){
   wallpaperClose();
-  return storeManager.get('wallpaperSwitch')? backgroundPageCreate(): backgroundPage
+  return storeManager.get('wallpaperSwitch')? backgroundPageCreate(): backgroundPage;
 }
 
 function wallpaperClose(){

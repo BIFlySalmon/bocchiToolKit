@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     autoLaunch();
     loadWallpaperSwitch(true);
     loadAutoLaunthBatSwitch();
+    loadAppInfo();
     
     if (wallpaperType === 'img' || wallpaperType === 'video') {
         fileInput.style.display = 'flex';
@@ -161,11 +162,12 @@ function loadWallpaperSwitch(isStartLoad){
     const wallpaperSwitch = window.settingsAPI.settingsGet('wallpaperSwitch');
     const mute = window.settingsAPI.settingsGet('mute');
     const pauseSwitch = window.settingsAPI.settingsGet('pauseSwitch');
+    const posterGirlOnOff = window.settingsAPI.settingsGet('posterGirlOnOff');
     document.getElementById('wallpaperOn').disabled = wallpaperSwitch;
     document.getElementById('wallpaperOff').disabled = !wallpaperSwitch;
     document.getElementById('muteButton').style.backgroundColor = mute ? 'lightgray': 'rgb(255, 186, 201)';
     document.getElementById('pauseButton').checked  = pauseSwitch;
-
+    document.getElementById('posterGirlOnOff').checked  = posterGirlOnOff;
     if(!isStartLoad){
         window.electronAPI.wallpaperRefresh();
     }
@@ -201,3 +203,28 @@ document.getElementById('runAutoLaunchBat').addEventListener('click', () => {
 document.getElementById('pauseButton').addEventListener('click', () => {
     window.settingsAPI.settingsSet('pauseSwitch', document.getElementById('pauseButton').checked );
 });
+
+
+function loadAppInfo(){
+    document.getElementById('appVersionShow').innerText = window.electronAPI.getAppVersion();
+    document.getElementById('appAuthorShow').innerText = 'by:' + window.electronAPI.getAppAuthor();
+}
+
+
+document.getElementById('posterGirlOnOff').addEventListener('click', () => {
+    const posterGirlOnOff = document.getElementById('posterGirlOnOff').checked 
+    window.settingsAPI.settingsSet('posterGirlOnOff', posterGirlOnOff);
+    window.electronAPI.refreshWindows();
+
+});
+
+document.getElementById('nextLive2D').addEventListener('click', () => {
+    window.live2d.nextLive2D();
+});
+
+
+// document.getElementById('shortCatKeySettings').addEventListener('click', () => {
+//     window.settingsAPI.updateShortcut('printscreen', document.getElementById('screenShotsKey').value);
+// });
+
+

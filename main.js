@@ -1,10 +1,13 @@
 const { app, BrowserWindow } = require('electron');
 
 const { wallpaperRefresh } = require('./services/wallpaperServer');
-const { createMainWindow } = require('./services/windowManager');
+const { createMainWindow, deleteFolderAndContents } = require('./services/windowManager');
 const { setupTray } = require('./services/trayManager');
 const { initializeIpcHandlers } = require('./services/ipcHandlers');
 const { quitApp } = require('./utils/appUtils');
+const { registerShortcuts } = require('./services/shortcutKeyManager');
+const { startScreenShots } = require('./services/printScreen');
+const { refreshWindows } = require('./services/posterGirlManager');
 
 const gotTheLock = app.requestSingleInstanceLock()
 let mainPage;
@@ -25,7 +28,9 @@ app.whenReady().then(() => {
     mainPage = createMainWindow();
     tray = setupTray(mainPage, quitApp);
     initializeIpcHandlers(mainPage);
-
+    startScreenShots();
+    registerShortcuts(); //注册快捷键
+    refreshWindows();
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
             mainPage = createMainWindow();
@@ -44,5 +49,10 @@ app.on('web-contents-created', (e, webContents) => {
         console.log(details.url);
         webContents.loadURL(details.url);
         return { action: 'deny' }
-    })
+    });
+
+    app.on('before-quit', (event) => {
+        deleteFolderAndContents();
+    });
+
 });

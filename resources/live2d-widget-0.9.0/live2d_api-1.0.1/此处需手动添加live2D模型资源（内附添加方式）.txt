@@ -1,0 +1,6 @@
+此处需添加live2D模型以及模型列表
+比如开源git库live2d_api-1.0.1其中包含不少live2D模型
+只需要将仓库中的model文件夹和model_list.json文件放置在此路径即可读取
+git仓库: https://github.com/fghrsh/live2d_api.git
+
+当然你也可以添加并适配其他的模型~

@@ -68,7 +68,7 @@
             </div>
             <div id="autoLaunchBox">
               <label>
-                <input type="checkbox" id="autoLaunchToggle" ><span class="checkboxFont">开机自启动</span></label>
+                <input type="checkbox" id="autoLaunchToggle" ><span class="checkboxFont luminousFont">开机自启动</span></label>
               </label>
               <br/>
               <textarea class="baseInput luminous" name="startBat" id="batInput" placeholder="开机启动脚本(bat)"></textarea>
@@ -81,13 +81,32 @@
           </div>
           <div id="card-box">
             <div><span class="card-box-title luminousFont">截屏录屏</span></div>
+            <div>快捷键暂定ctrl+shift+T</div>
             <div>开发中...</div>
           </div>
           <div id="card-box">
-            <div>待开发...</div>
+            <div><span class="card-box-title luminousFont">快捷键设置</span></div>
+            <div>测试:ctrl+shift+S主窗口</div>
+            <!-- <div>
+              <span class="oneline luminousFont">截图:</span>
+              <div class="input-group luminous">
+                <input class="baseInput" type="text" id="screenShotsKey" placeholder="请输入快捷键">
+              </div>
+            </div> 
+            <div>
+              <button class="baseButton luminous" id="shortCatKeySettings" type="button">保存</button>
+            </div> -->
+            <div>开发中...</div>
           </div>
           <div id="card-box">
-            <div>待开发...</div>
+            <div><span class="card-box-title luminousFont">看板娘</span></div>
+            <div>
+              <label>
+                <input type="checkbox" id="posterGirlOnOff" ><span class="checkboxFont luminousFont">是否开启（测试）</span></label>
+              </label>
+              <button class="baseButton luminous" id="nextLive2D" type="button">下一个</button>
+            </div>
+            <div>开发中...</div>
           </div>
           <div id="card-box">
             <div>待开发...</div>
@@ -96,8 +115,8 @@
       </div>
 
       <div id="floot">
-        <div class="luminousFont">v1.0.0</div>
-        <div class="luminousFont">by:逆飞的三文鱼</div>
+        <div class="luminousFont" id="appVersionShow">v1.0.0</div>
+        <div class="luminousFont" id="appAuthorShow">by:逆飞的三文鱼</div>
       </div>
       <script src="../../components/titlebar/titlebarRenderer.js"></script>
       <script src="js/mainPage.js"></script>

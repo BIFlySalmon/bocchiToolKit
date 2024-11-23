@@ -8,7 +8,12 @@ const defaultSettings = {
   wallpaperType: 'bilibili', //img video url bilibili
   wallpaperPath: 'BV1m34y1M7pG', // 自定义壁纸路径
   autoLaunthBat: '',
-  pauseSwitch: true
+  pauseSwitch: true,
+  shortcuts: {
+    'show-window': 'CommandOrControl+Shift+S',
+    'printscreen' : 'CommandOrControl+Shift+T'
+  },
+  posterGirlOnOff: false
 };
 
 // 初始化 store 实例

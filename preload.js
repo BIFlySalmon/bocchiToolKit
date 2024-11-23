@@ -11,9 +11,22 @@ contextBridge.exposeInMainWorld('electronAPI', {
     refreshMute: () => ipcRenderer.send('refreshMute'),
     // onMessage: (callback) => ipcRenderer.on('refreshMute', callback),
     executeBat: () => ipcRenderer.send('execute-bat'),  //测试运行启动脚本
-    onfindMaxWinMsg: (callback) => ipcRenderer.on('findMaxWinMsg', callback)
+    onfindMaxWinMsg: (callback) => ipcRenderer.on('findMaxWinMsg', callback),
+    getImgPath: (callback) => ipcRenderer.on('getImgPath', callback),
+    hello: (callback) => ipcRenderer.on('hello', callback),
+    getAppVersion: (appVersion) => ipcRenderer.sendSync('getAppVersion', appVersion),
+    getAppAuthor: (appAuthor) => ipcRenderer.sendSync('getAppAuthor', appAuthor),
+    refreshWindows: () => ipcRenderer.send('refreshWindows'),
+    sendClickEvent: () => ipcRenderer.send('click-event'),
+    sendMoseEvent: (moseEvent) => ipcRenderer.send('sendMoseEvent', moseEvent),
+    showContextMenu: (position) => ipcRenderer.send('showContextMenu', position)
 });
 
+contextBridge.exposeInMainWorld('live2d', {
+  getlive2dPath: () => ipcRenderer.sendSync('getlive2dPath'),
+  nextLive2D: () => ipcRenderer.send('nextLive2D'),
+  onNextLive2D: (callback) => ipcRenderer.on('onNextLive2D', callback)
+});
 
 contextBridge.exposeInMainWorld('autoLaunchAPI', {
   setAutoLaunch: (enable) => ipcRenderer.invoke('set-auto-launch', enable),
@@ -42,5 +55,8 @@ contextBridge.exposeInMainWorld('settingsAPI', {
   settingsHas: (key) => ipcRenderer.sendSync('settings:has', key),
 
   // 获取所有设置项
-  settingsGetAll: () => ipcRenderer.sendSync('settings:getAll')
+  settingsGetAll: () => ipcRenderer.sendSync('settings:getAll'),
+
+  //设置快捷键
+  updateShortcut: (action, newShortcut) => ipcRenderer.send('updateShortcut', action, newShortcut)
 });

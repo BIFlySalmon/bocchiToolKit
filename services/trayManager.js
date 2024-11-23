@@ -7,11 +7,11 @@ function setupTray(mainPage, quitApp) {
 
     const contextMenu = Menu.buildFromTemplate([
         {
-            label: '显示',
+            label: '　显示　　',
             click: () => { mainPage.show(); }
         },
         {
-            label: '退出',
+            label: '　退出　　',
             click: () => { quitApp(); }
         }
     ]);
