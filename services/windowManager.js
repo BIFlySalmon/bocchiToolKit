@@ -119,7 +119,7 @@ function createImgWindows(buffer, bounds){
         }
     });
     
-    // imgWindows.removeMenu();
+    imgWindows.removeMenu();
     imgWindows.setAspectRatio(bounds.bounds.width/(bounds.bounds.height + 20) );
     imgWindows.loadFile(path.join(__dirname, '..', 'page', 'imgPage', 'imgPage.html'));
     
@@ -145,9 +145,9 @@ function showcontextmenu (position) {
                 });
                 // console.log(position.path);console.log(result.canceled?'NoPath':result.filePaths[0]); 
                 // 使用 fs.copyFile 进行文件复制
-                fs.copyFile(position.path, path.join(result.filePaths[0], '屏幕截图' + position.path.slice(position.path.lastIndexOf('_')) ), (err) => {
+                fs.copyFile( decodeURIComponent(position.path), decodeURIComponent(path.join(result.filePaths[0], '屏幕截图' + position.path.slice(position.path.lastIndexOf('_'))) ), (err) => {
                     if (err) {
-                        console.error('文件复制失败:', err);
+                        dialog.showErrorBox('文件复制失败:', err.message);
                     }
                 });
             }
@@ -179,6 +179,7 @@ function createposterGirlWindows(){
         frame: false,      // 去掉窗口边框
         alwaysOnTop: true, // 可选：保持窗口置顶
         skipTaskbar: true, // 不显示在任务栏
+        // fullscreen:true,
         icon: path.join(__dirname, '..', 'icon64.ico'),
         webPreferences: {
             preload: path.join(__dirname, '..', 'preload.js')
@@ -228,5 +229,6 @@ module.exports = {
     createposterGirlWindows,
     deleteFolderAndContents,
     mouseThroughManager,
-    showcontextmenu
+    showcontextmenu,
+    mainPage
 };

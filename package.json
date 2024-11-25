@@ -1,12 +1,14 @@
 {
   "name": "bocchitoolkit",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "波奇工具箱  by:BiliBili-逆飞的三文鱼",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder",
-    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+    "build": "electron-builder --publish never",
+    "release": "electron-builder --publish always",
+    "test": "echo \\\"Error: no test specified\\\" && exit 1",
+    "pack-by-builder": "CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder"
   },
   "repository": {
     "type": "git",
@@ -26,17 +28,21 @@
     "electron-builder": "^25.1.8"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "electron-screenshots": "^0.5.27",
     "electron-store": "^7.0.3",
-    "koffi": "^2.9.2"
+    "electron-updater": "^6.3.9",
+    "koffi": "^2.9.2",
+    "sudo-prompt": "^9.2.1"
   },
   "build": {
     "productName": "波奇工具箱",
     "appId": "com.bocchitoolkit",
     "copyright": "逆飞的三文鱼",
+    "afterPack": "./afterPack.js",
     "files": [
       "**/*",
-      "node_modules/**/*"
+      "!resources/live2d-widget-0.9.0/live2d_api-1.0.1/此处需手动添加live2D模型资源（内附添加方式）.txt"
     ],
     "asarUnpack": [],
     "directories": {
@@ -76,6 +82,10 @@
           ]
         }
       ]
+    },
+    "publish": {
+      "provider": "generic",
+      "url": ""
     }
   }
 }

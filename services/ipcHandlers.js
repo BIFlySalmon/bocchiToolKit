@@ -8,6 +8,7 @@ const { getVersion, getAuthor } = require('../utils/getAppInfo');
 const { updateShortcut } = require('./shortcutKeyManager');
 const { refreshWindows, getlive2dPath, nextLive2D } = require('./posterGirlManager');
 const { mouseThroughManager, showcontextmenu } = require('./windowManager');
+const { getServiceStatus, toggleDevice, isReBoot } = require('./keyboardDevices');
 
 
 function initializeIpcHandlers(mainPage) {
@@ -153,6 +154,21 @@ function initializeIpcHandlers(mainPage) {
         showcontextmenu(position)
     });
     
+
+    // IPC 处理
+    ipcMain.handle('get-keyboards', async () => {
+        return await getServiceStatus();
+    });
+
+    ipcMain.handle('toggle-keyboard', async () => {
+        return await toggleDevice();
+    });
+
+    // 监听渲染进程的弹窗请求
+    ipcMain.on('show-confirm-dialog', async (event) => {
+        event.returnValue = await isReBoot();
+    });
+
 }
 
 module.exports = { initializeIpcHandlers };

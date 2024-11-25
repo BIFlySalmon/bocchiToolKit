@@ -12,6 +12,7 @@ const { refreshWindows } = require('./services/posterGirlManager');
 const gotTheLock = app.requestSingleInstanceLock()
 let mainPage;
 let tray;
+app.commandLine.appendSwitch('lang', 'zh-CN');
 
 app.whenReady().then(() => {
     //防止程序多开
@@ -39,7 +40,7 @@ app.whenReady().then(() => {
 });
 
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') app.quit();
+    app.quit();
 });
 
 // 禁用window.open打开窗口

@@ -22,6 +22,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
     showContextMenu: (position) => ipcRenderer.send('showContextMenu', position)
 });
 
+
+// 暴露安全接口给渲染进程
+contextBridge.exposeInMainWorld('keyboardManager', {
+  getKeyboards: () => ipcRenderer.invoke('get-keyboards'),
+  toggleKeyboard: () => ipcRenderer.invoke('toggle-keyboard'),
+  showConfirmDialogg: () => ipcRenderer.sendSync('show-confirm-dialog')
+});
+
 contextBridge.exposeInMainWorld('live2d', {
   getlive2dPath: () => ipcRenderer.sendSync('getlive2dPath'),
   nextLive2D: () => ipcRenderer.send('nextLive2D'),

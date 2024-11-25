@@ -165,3 +165,8 @@ input{
     white-space: nowrap;
     overflow: auto;
 }
+
+#manage-keyboard-btn{
+    width: 50%;
+    height: 70%;
+}

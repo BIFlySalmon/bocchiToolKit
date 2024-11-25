@@ -4,6 +4,9 @@ const urlInput = document.getElementById('url-input');
 const bilibiliInput = document.getElementById('bilibili-input');
 const bilibiliHint = document.getElementById('bilibili-hint');
 
+
+let firstKeyBoard;
+
 document.addEventListener('DOMContentLoaded', () => {
     // 获取初始值
     const wallpaperType = window.settingsAPI.settingsGet('wallpaperType');
@@ -21,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadWallpaperSwitch(true);
     loadAutoLaunthBatSwitch();
     loadAppInfo();
+    keyboardSettings();
     
     if (wallpaperType === 'img' || wallpaperType === 'video') {
         fileInput.style.display = 'flex';
@@ -184,6 +188,13 @@ async function autoLaunch(){
     document.getElementById('autoLaunchToggle').checked = isEnabled;
 }
 
+async function keyboardSettings(){
+    const isEnabled = await window.keyboardManager.getKeyboards();
+    firstKeyBoard = isEnabled;
+    console.log(isEnabled);
+    document.getElementById('manage-keyboard-btn').innerText = isEnabled === "disabled"?"点击启用":"点击禁用";
+}
+
 // 监听自启动开关的变化
 document.getElementById('autoLaunchToggle').addEventListener('change', async (event) => {
     const enable = event.target.checked;
@@ -206,7 +217,7 @@ document.getElementById('pauseButton').addEventListener('click', () => {
 
 
 function loadAppInfo(){
-    document.getElementById('appVersionShow').innerText = window.electronAPI.getAppVersion();
+    document.getElementById('appVersionShow').innerText = 'V' + window.electronAPI.getAppVersion();
     document.getElementById('appAuthorShow').innerText = 'by:' + window.electronAPI.getAppAuthor();
 }
 
@@ -222,6 +233,15 @@ document.getElementById('nextLive2D').addEventListener('click', () => {
     window.live2d.nextLive2D();
 });
 
+
+document.getElementById('manage-keyboard-btn').addEventListener('click', async () => {
+    document.getElementById('manage-keyboard-btn').disabled = true;
+    document.getElementById('manage-keyboard-btn').innerText = "设置中...";
+    const updatedState = await window.keyboardManager.toggleKeyboard();
+    document.getElementById('manage-keyboard-btn').innerText = !updatedState?"点击禁用(需重启)":"点击启用(需重启)";
+    document.getElementById('manage-keyboard-btn').disabled = false;
+    await window.keyboardManager.showConfirmDialogg();
+});
 
 // document.getElementById('shortCatKeySettings').addEventListener('click', () => {
 //     window.settingsAPI.updateShortcut('printscreen', document.getElementById('screenShotsKey').value);
