@@ -1,32 +1,35 @@
-const { app } = require('electron');
+const { app, dialog } = require('electron');
 const { writeFileSync, unlinkSync } = require('fs');
 const { join } = require('path');
 const { exec } = require('child_process');
 const { storeManager } = require('./storeManager');
+const iconv = require('iconv-lite');
 
 function executeBat() {
 
     const batContent = storeManager.get('autoLaunthBat');
     const batPath = join(app.getPath('temp'), 'temp_script.bat');
 
+    // console.log(batPath);
     if (batContent.trim() === ''){
         console.log('bat无内容,取消执行');
         return;
     }
     try {
-        // 写入临时文件
-        writeFileSync(batPath, batContent);
+        // 将内容转换为 ANSI（例如 GBK）
+        const buffer = iconv.encode(batContent, 'GBK'); // 或 'gbk' 取决于具体需求
+        writeFileSync(batPath, buffer);
 
         // 执行 .bat 文件
         const bat = new Promise((resolve, reject) => {
-            exec(`"${batPath}"`, { encoding: 'utf8' }, (error, stdout, stderr) => {
+            exec(`"${batPath}"`, { encoding: 'GBK' }, (error, stdout, stderr) => {
                 // 删除临时文件
                 unlinkSync(batPath);
 
                 if (error) {
-                    console.log(stderr || error.message);
+                    console.log(iconv.decode(stderr, 'GBK') || error.message );
                 } else {
-                    console.log(stdout);
+                    console.log(iconv.decode(stdout, 'GBK'));
                 }
             });
         });
