@@ -243,6 +243,20 @@ document.getElementById('manage-keyboard-btn').addEventListener('click', async (
     await window.keyboardManager.showConfirmDialogg();
 });
 
+
+// 提示用户有可用更新
+// window.updateAPI.updateAvailable(() => {
+    // alert('新版本可用！请等待下载完成。');
+// });
+
+// 提示用户更新已下载并准备安装
+// window.updateAPI.updateDownloaded(() => {
+    // const choice = confirm('更新已下载，是否立即重启应用以完成更新？');
+    // if (choice) {
+    //     ipcRenderer.send('restart_app');
+    // }
+// });
+
 // document.getElementById('shortCatKeySettings').addEventListener('click', () => {
 //     window.settingsAPI.updateShortcut('printscreen', document.getElementById('screenShotsKey').value);
 // });

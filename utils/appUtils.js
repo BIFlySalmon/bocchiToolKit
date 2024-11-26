@@ -1,5 +1,6 @@
 const { WallpaperCloseDLL } = require('../dllCall/WallpaperSet');
 const { globalShortcut } = require('electron');
+const { autoUpdater } = require('electron-updater');
 let quitFlag = false;
 
 function quitApp() {
@@ -13,4 +14,15 @@ function getQuitFlag() {
     return quitFlag;
 }
 
-module.exports = { quitApp, getQuitFlag };
+function updateToRestart(){
+    WallpaperCloseDLL();
+    globalShortcut.unregisterAll();
+    quitFlag = true;
+    autoUpdater.quitAndInstall();
+}
+
+module.exports = { 
+    quitApp, 
+    getQuitFlag, 
+    updateToRestart 
+};

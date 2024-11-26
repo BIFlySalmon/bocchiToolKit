@@ -68,3 +68,8 @@ contextBridge.exposeInMainWorld('settingsAPI', {
   //设置快捷键
   updateShortcut: (action, newShortcut) => ipcRenderer.send('updateShortcut', action, newShortcut)
 });
+
+// contextBridge.exposeInMainWorld('updateAPI', {
+//   updateAvailable : () => ipcRenderer.on('update-available'),
+//   updateDownloaded : () => ipcRenderer.on('update-downloaded')
+// });

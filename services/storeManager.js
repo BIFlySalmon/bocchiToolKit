@@ -13,7 +13,8 @@ const defaultSettings = {
     'show-window': 'CommandOrControl+Shift+S',
     'printscreen' : 'CommandOrControl+Shift+T'
   },
-  posterGirlOnOff: false
+  posterGirlOnOff: false,
+  onceNotification: false
 };
 
 // 初始化 store 实例

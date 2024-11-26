@@ -170,3 +170,7 @@ input{
     width: 50%;
     height: 70%;
 }
+
+#smallFont{
+    font-size: 0.5rem;
+}

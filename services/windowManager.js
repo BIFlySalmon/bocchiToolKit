@@ -1,4 +1,4 @@
-const { app, BrowserWindow, dialog, screen , Menu } = require('electron');
+const { app, BrowserWindow, dialog, screen , Menu, Notification } = require('electron');
 const path = require('node:path');
 const fs = require('fs');
 const { getQuitFlag } = require('../utils/appUtils');
@@ -6,6 +6,7 @@ const { executeBat } = require('./batManager');
 const isAutoStart = process.argv.includes('-autoLaunch');
 const mouseThroughManager = require('./mouseThroughManager');
 const { addWindowClickEvent } = require('./ClickEventManager');
+const { storeManager } = require('./storeManager');
 
 let mainPage;
 let imgWindows;
@@ -52,6 +53,18 @@ function createMainWindow() {
             event.preventDefault();
             mainPage.hide();
             mainPage.setSkipTaskbar(true);
+
+
+            // 检查通知是否可用
+            if (!storeManager.get('onceNotification') && Notification.isSupported()) {
+                const notification = new Notification({
+                    title: '已最小化到托盘',
+                    body: '为保证壁纸等功能正常运作，需要保持后台运行哦~',
+                    icon: path.join(__dirname, '..', 'icon256.ico'),
+                });
+                notification.show();
+                storeManager.set('onceNotification', true);
+            }
         }
     });
 

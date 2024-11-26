@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron .",
     "build": "electron-builder --publish never",
-    "release": "electron-builder --publish always",
+    "release": "dotenv electron-builder --publish always",
     "test": "echo \\\"Error: no test specified\\\" && exit 1",
     "pack-by-builder": "CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder"
   },
@@ -24,11 +24,12 @@
   },
   "homepage": "https://github.com/BIFlySalmon/FlySalmonToolKit#readme",
   "devDependencies": {
+    "dotenv-cli": "^7.4.4",
     "electron": "^33.2.0",
     "electron-builder": "^25.1.8"
   },
   "dependencies": {
-    "dotenv": "^16.4.5",
+    "electron-log": "^5.2.3",
     "electron-screenshots": "^0.5.27",
     "electron-store": "^7.0.3",
     "electron-updater": "^6.3.9",
@@ -43,7 +44,8 @@
     "afterPack": "./afterPack.js",
     "files": [
       "**/*",
-      "!resources/live2d-widget-0.9.0/live2d_api-1.0.1/此处需手动添加live2D模型资源（内附添加方式）.txt"
+      "!resources/live2d-widget-0.9.0/live2d_api-1.0.1/此处需手动添加live2D模型资源（内附添加方式）.txt",
+      "!.env"
     ],
     "asarUnpack": [],
     "directories": {
@@ -85,8 +87,9 @@
       ]
     },
     "publish": {
-      "provider": "generic",
-      "url": ""
+      "provider": "github",
+      "owner": "BIFlySalmon",
+      "repo": "bocchiToolKitUpdate"
     }
   }
 }
