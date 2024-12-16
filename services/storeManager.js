@@ -1,6 +1,5 @@
 const Store = require('electron-store');
 
-
 // 定义默认设置
 const defaultSettings = {
   mute: false, //壁纸是否静音
@@ -14,7 +13,8 @@ const defaultSettings = {
     'printscreen' : 'CommandOrControl+Shift+T'
   },
   posterGirlOnOff: false,
-  onceNotification: false
+  onceNotification: false,
+  autoGetPicture: false
 };
 
 // 初始化 store 实例

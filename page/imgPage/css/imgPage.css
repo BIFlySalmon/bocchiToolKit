@@ -1,26 +1,18 @@
-#imgshow{
+#imgshow {
     display: inline-block;
-    height: 100%; /* 高度占满窗口 */
-    width: auto;  /* 宽度自动调整，可能溢出 */
-    object-fit: cover; /* 视频溢出宽度时会被裁剪 */
-    pointer-events: none;
+    height: 100%;
+    width: auto;
+    object-fit: contain; /* 保证图片不被拉伸 */
+    cursor: grab; /* 鼠标显示抓取状态 */
+    user-drag: none; /* 禁用图片默认拖动行为 */
+    position: absolute; /* 确保可以精确控制图片位置 */
 }
+
+
 body{
     text-align: center;
+    background-color: rgb(40, 35, 41);
+    margin: 0;
+    overflow: hidden; /* 防止图片放大后超出视口 */
+    height: 100vh;
 }
-
-/* drag-region{
-    width: 100%;
-    height: 100%;
-    -webkit-app-region: drag;
-} */
-
-
-/* #follower {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    background-color: red;
-    border-radius: 50%;
-    pointer-events: none;  
-  } */

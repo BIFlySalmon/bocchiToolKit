@@ -136,3 +136,6 @@ services/temp_image
 
 resources/live2d-widget-0.9.0/live2d_api-1.0.1/model/*
 resources/live2d-widget-0.9.0/live2d_api-1.0.1/model_list.json
+resources/ffmpeg/bin/ffmpeg.exe
+resources/ffmpeg/bin/ffprobe.exe
+resources/ffmpeg/bin/ffplay.exe

@@ -2,6 +2,7 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta
       http-equiv="Content-Security-Policy"
@@ -20,7 +21,7 @@
     <div class="container">
       <div id="title-box">
         <div id="title-drag"></div>
-        <iframe id="titlebar" src="../../components/titlebar/titlebar.html"></iframe>
+        <iframe title="titlebar" id="titlebar" src="../../components/titlebar/titlebar.html"></iframe>
       </div>
       
       <div id="content">
@@ -80,23 +81,34 @@
             </div>
           </div>
           <div id="card-box">
-            <div><span class="card-box-title luminousFont">截屏录屏</span></div>
-            <div>快捷键暂定ctrl+shift+T</div>
-            <div>开发中...</div>
+            <div><span class="card-box-title luminousFont">开机拍照</span></div>
+            <div>
+              <span>开机启动后会自动拍摄一张照片</span><br>
+              <span>再也不怕被别人偷玩电脑辣</span>
+            </div>
+            <div>
+              <button class="baseButton luminous" id="autoGetPicture">加载中...</button>
+              <button class="baseButton luminous" id="openPicDir">查看照片</button>
+            </div>
+            <div></div>
           </div>
           <div id="card-box">
             <div><span class="card-box-title luminousFont">快捷键设置</span></div>
-            <div>测试:ctrl+shift+S主窗口</div>
-            <!-- <div>
-              <span class="oneline luminousFont">截图:</span>
-              <div class="input-group luminous">
-                <input class="baseInput" type="text" id="screenShotsKey" placeholder="请输入快捷键">
+            <!-- <div>测试:ctrl+shift+S主窗口</div> -->
+            
+            <div id="shortcutContainer">
+              <div class="input-group oneline">
+                <span class="oneline luminousFont">主窗口:</span>
+                <input class="baseInput luminous" id="showWindow" type="text" placeholder="点击这里设置快捷键" readonly>
+              </div>
+              <div class="input-group oneline">
+                <span class="oneline luminousFont">截图:</span>
+                <input class="baseInput luminous" id="screenShotsKey" type="text" placeholder="点击这里设置快捷键" readonly>
               </div>
             </div> 
             <div>
               <button class="baseButton luminous" id="shortCatKeySettings" type="button">保存</button>
-            </div> -->
-            <div>开发中...</div>
+            </div>
           </div>
           <div id="card-box">
             <div><span class="card-box-title luminousFont">看板娘</span></div>
@@ -114,7 +126,7 @@
               <span id="smallFont">禁用笔记本自带键盘，以将外接键盘、数位板毫无顾忌的放到上面</span><br>
               <span>执行功能需要管理员权限</span><br>
             </div>
-            <button class="baseButton luminous" id="manage-keyboard-btn"></button>
+            <button class="baseButton luminous" id="manage-keyboard-btn">加载中...</button>
             <div>
               
             </div>

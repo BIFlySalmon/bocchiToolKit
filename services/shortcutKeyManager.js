@@ -49,22 +49,20 @@ function handleShortcutAction(action) {
 }
 
 
+
 function updateShortcut(action, newShortcut) {
     const shortcuts = storeManager.get('shortcuts');
-    // console.log(shortcuts);
+    
     // 检查是否存在该动作的快捷键
     if (shortcuts[action]) {
-        shortcuts[action] = newShortcut; // 更新指定的快捷键
+        // 先注销原本的快捷键
+        globalShortcut.unregister(shortcuts[action]); 
         storeManager.set(`shortcuts.${action}`, newShortcut); // 仅更新该键值对
-        // console.log(`key ${action} updated: ${newShortcut}`);
 
-        // 重新注册单个快捷键
-        globalShortcut.unregister(newShortcut); // 先注销旧的快捷键
+        // 重新注册新的快捷键
         const success = globalShortcut.register(newShortcut, () => {
-            // // console.log(`key: ${newShortcut} (Action: ${action})`);
             handleShortcutAction(action);
         });
-
         if (success) {
             // console.log(`key ${action} success: ${newShortcut}`);
         } else {

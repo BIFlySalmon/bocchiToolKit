@@ -41,6 +41,15 @@ function executeBat() {
 
 }
 
+
+
+
+function openVersion(){
+    exec('start https://github.com/BIFlySalmon/bocchiToolKitUpdate/releases');
+}
+
+
 module.exports = {
-    executeBat
+    executeBat,
+    openVersion
 }

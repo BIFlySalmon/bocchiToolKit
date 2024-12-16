@@ -1,5 +1,7 @@
 const { contextBridge , ipcRenderer } = require('electron/renderer');
 
+
+
 contextBridge.exposeInMainWorld('electronAPI', {
     quitApp: () => ipcRenderer.send('app-quit'),  // 向主进程发送退出请求
     winMinimize: () => ipcRenderer.send('window-minimize'),
@@ -19,7 +21,13 @@ contextBridge.exposeInMainWorld('electronAPI', {
     refreshWindows: () => ipcRenderer.send('refreshWindows'),
     sendClickEvent: () => ipcRenderer.send('click-event'),
     sendMoseEvent: (moseEvent) => ipcRenderer.send('sendMoseEvent', moseEvent),
-    showContextMenu: (position) => ipcRenderer.send('showContextMenu', position)
+    showContextMenu: (position) => ipcRenderer.send('showContextMenu', position),
+    openVersion: () => ipcRenderer.send('openVersion'),
+    showMessageBox: (win, type, buttons, defaultId, cancelId, title, message) => 
+      ipcRenderer.send('showMessageBox', win, type, buttons, defaultId, cancelId, title, message),
+    getOrigin:(client, rect) => ipcRenderer.sendSync('getOrigin', client, rect ),
+    mul: (num1, num2) => ipcRenderer.sendSync('mul', num1, num2),
+    div: (num1, num2) => ipcRenderer.sendSync('div', num1, num2)
 });
 
 
@@ -39,6 +47,12 @@ contextBridge.exposeInMainWorld('live2d', {
 contextBridge.exposeInMainWorld('autoLaunchAPI', {
   setAutoLaunch: (enable) => ipcRenderer.invoke('set-auto-launch', enable),
   isAutoLaunchEnabled: () => ipcRenderer.invoke('get-auto-launch-status'),
+});
+
+contextBridge.exposeInMainWorld('autoGetPictureAPI', {
+  getAutoGetPicture: () => ipcRenderer.invoke('getAutoGetPicture'),
+  setAutoGetPicture: () => ipcRenderer.invoke('setAutoGetPicture'),
+  openPicDir: () => ipcRenderer.send('openPicDir')
 });
 
 contextBridge.exposeInMainWorld('fileAPI', {
@@ -67,6 +81,10 @@ contextBridge.exposeInMainWorld('settingsAPI', {
 
   //设置快捷键
   updateShortcut: (action, newShortcut) => ipcRenderer.send('updateShortcut', action, newShortcut)
+});
+
+contextBridge.exposeInMainWorld('api', {
+  sendShortcut: (shortcut) => ipcRenderer.send('shortcut', shortcut),
 });
 
 // contextBridge.exposeInMainWorld('updateAPI', {

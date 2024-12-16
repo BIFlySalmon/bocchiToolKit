@@ -25,6 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
     loadAutoLaunthBatSwitch();
     loadAppInfo();
     keyboardSettings();
+    autoGetPictureSettings();
+    loadshortcut();
     
     if (wallpaperType === 'img' || wallpaperType === 'video') {
         fileInput.style.display = 'flex';
@@ -132,8 +134,8 @@ document.getElementById('settingsSend').addEventListener('click', () => {
         window.settingsAPI.settingsSet('wallpaperPath', pathValue);
 
         // 提示用户保存成功
-        alert('设置已保存！');
-
+        // alert('设置已保存！');
+        window.electronAPI.showMessageBox('mainPage', 'info', ['确定'], 0, 0, '提示', '已保存');
         loadWallpaperSwitch(false);
     } else {
         // 提示用户输入完整信息
@@ -191,8 +193,12 @@ async function autoLaunch(){
 async function keyboardSettings(){
     const isEnabled = await window.keyboardManager.getKeyboards();
     firstKeyBoard = isEnabled;
-    console.log(isEnabled);
-    document.getElementById('manage-keyboard-btn').innerText = isEnabled === "disabled"?"点击启用":"点击禁用";
+    document.getElementById('manage-keyboard-btn').innerText = isEnabled === "disabled"?"启用键盘":"禁用键盘";
+}
+
+async function autoGetPictureSettings(){
+    const isEnabled = await window.autoGetPictureAPI.getAutoGetPicture();
+    document.getElementById('autoGetPicture').innerText = isEnabled === false?"点击启用":"点击禁用";
 }
 
 // 监听自启动开关的变化
@@ -204,7 +210,8 @@ document.getElementById('autoLaunchToggle').addEventListener('change', async (ev
 //保存自启动脚本
 document.getElementById('saveAutoLaunchBat').addEventListener('click', () => {
     window.settingsAPI.settingsSet('autoLaunthBat', document.getElementById('batInput').value);
-    alert('已保存');
+    // alert('已保存');
+    window.electronAPI.showMessageBox('mainPage', 'info', ['确定'], 0, 0, '提示', '已保存');
 });
 
 document.getElementById('runAutoLaunchBat').addEventListener('click', () => {
@@ -221,6 +228,17 @@ function loadAppInfo(){
     document.getElementById('appAuthorShow').innerText = 'by:' + window.electronAPI.getAppAuthor();
 }
 
+function loadshortcut(){
+    document.getElementById('showWindow').value = window.settingsAPI.settingsGet('shortcuts.show-window');
+    document.getElementById('screenShotsKey').value = window.settingsAPI.settingsGet('shortcuts.printscreen');
+}
+
+document.getElementById('shortCatKeySettings').addEventListener('click', () => {
+    window.settingsAPI.updateShortcut('show-window', document.getElementById('showWindow').value);
+    window.settingsAPI.updateShortcut('printscreen', document.getElementById('screenShotsKey').value);
+    loadshortcut();
+    window.electronAPI.showMessageBox('mainPage', 'info', ['确定'], 0, 0, '提示', '已保存');
+});
 
 document.getElementById('posterGirlOnOff').addEventListener('click', () => {
     const posterGirlOnOff = document.getElementById('posterGirlOnOff').checked 
@@ -233,32 +251,88 @@ document.getElementById('nextLive2D').addEventListener('click', () => {
     window.live2d.nextLive2D();
 });
 
+document.getElementById('appVersionShow').addEventListener('click', () => {
+    window.electronAPI.openVersion();
+});
+
 
 document.getElementById('manage-keyboard-btn').addEventListener('click', async () => {
     document.getElementById('manage-keyboard-btn').disabled = true;
     document.getElementById('manage-keyboard-btn').innerText = "设置中...";
     const updatedState = await window.keyboardManager.toggleKeyboard();
-    document.getElementById('manage-keyboard-btn').innerText = !updatedState?"点击禁用(需重启)":"点击启用(需重启)";
+    document.getElementById('manage-keyboard-btn').innerText = !updatedState?"禁用键盘(需重启)":"启用键盘(需重启)";
     document.getElementById('manage-keyboard-btn').disabled = false;
     await window.keyboardManager.showConfirmDialogg();
 });
 
 
-// 提示用户有可用更新
-// window.updateAPI.updateAvailable(() => {
-    // alert('新版本可用！请等待下载完成。');
+document.getElementById('autoGetPicture').addEventListener('click', async () => {
+    document.getElementById('autoGetPicture').disabled = true;
+    document.getElementById('autoGetPicture').innerText = "设置中...";
+    const updatedState = await window.autoGetPictureAPI.setAutoGetPicture();
+    document.getElementById('autoGetPicture').innerText = !updatedState?"点击启用":"点击禁用";
+    document.getElementById('autoGetPicture').disabled = false;
+});
+
+document.getElementById('openPicDir').addEventListener('click', () => {
+    window.autoGetPictureAPI.openPicDir();
+});
+
+const shortcutContainer = document.getElementById('shortcutContainer');
+
+// 按键状态记录
+let keys = new Set();
+
+// 格式化快捷键
+const formatShortcut = (keys) => {
+    return Array.from(keys)
+        .map((key) => {
+            if (key === ' ') return 'Space';
+            if (['Control', 'Shift', 'Alt', 'Meta'].includes(key)) {
+                return key;
+            }
+            return key.charAt(0).toUpperCase() + key.slice(1);
+        })
+        .join('+');
+};
+
+// 监听输入框的点击事件
+shortcutContainer.addEventListener('focusin', (event) => {
+    const target = event.target;
+
+    // 确认事件目标是输入框
+    if (target.tagName === 'INPUT' && target.classList.contains('baseInput')) {
+        keys.clear(); // 清空上次的按键记录
+        target.value = ''; // 清空输入框
+
+        const keydownHandler = (event) => {
+            event.preventDefault();
+            keys.add(event.key);
+            target.value = formatShortcut(keys);
+        };
+
+        const keyupHandler = (event) => {
+            event.preventDefault();
+            keys.delete(event.key);
+
+            // 当没有按键按下时，移除事件监听
+            if (keys.size === 0) {
+                window.removeEventListener('keydown', keydownHandler);
+                window.removeEventListener('keyup', keyupHandler);
+            }
+        };
+
+        // 添加全局键盘事件监听
+        window.addEventListener('keydown', keydownHandler);
+        window.addEventListener('keyup', keyupHandler);
+    }
+});
+
+// // 监听输入框的点击事件
+// shortcutContainer.addEventListener('focusout', (event) => {
+//     const target = event.target;
+//     // 确认事件目标是输入框
+//     if (target.tagName === 'INPUT' && target.classList.contains('baseInput')) {
+//         loadshortcut();
+//     }
 // });
-
-// 提示用户更新已下载并准备安装
-// window.updateAPI.updateDownloaded(() => {
-    // const choice = confirm('更新已下载，是否立即重启应用以完成更新？');
-    // if (choice) {
-    //     ipcRenderer.send('restart_app');
-    // }
-// });
-
-// document.getElementById('shortCatKeySettings').addEventListener('click', () => {
-//     window.settingsAPI.updateShortcut('printscreen', document.getElementById('screenShotsKey').value);
-// });
-
-

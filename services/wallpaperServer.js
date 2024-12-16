@@ -19,7 +19,7 @@ function wallpaperRefresh(){
 }
 
 function wallpaperClose(){
-  if (!(backgroundPage == null || backgroundPage == undefined)){
+  if (!backgroundPage == undefined || !backgroundPage == null){
       stopfindMaxWinMonitoring();
       backgroundPage.close();
       WallpaperCloseDLL();
@@ -35,6 +35,7 @@ function backgroundPageCreate(){
     width: 800,
     height: 600,
     title: "bocchiWallpaper",
+    skipTaskbar: true,
     frame: false,
     fullscreen: true,
     webPreferences: {

@@ -1,6 +1,7 @@
 const { app, globalShortcut } = require("electron");
 const Screenshots = require("electron-screenshots");
-const { createImgWindows } = require('./windowManager');
+const { createImgWindows, mainPage } = require('./windowManager');
+const { showMessageBox } = require('../utils/dialogUtils');
 
 let screenshots;
 
@@ -16,6 +17,7 @@ function startScreenShots(){
     screenshots.on("ok", (e, buffer, bounds) => {
         // console.log("capture", buffer, bounds);
         createImgWindows(buffer, bounds);
+        showMessageBox(mainPage, "info", ['确定'], 0, 0, '截图成功', '图片已复制到剪贴板');
     });
 
     // screenshots.on("cancel", (e) => {

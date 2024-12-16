@@ -3,13 +3,16 @@ const { wallpaperRefresh, refreshMute} = require('./wallpaperServer');
 const { storeManager } = require('./storeManager');
 const { setAutoLaunch, isAutoLaunchEnabled } = require('./autoLaunch');
 const { wallpaperFileSelect } = require('./fileManager');
-const { executeBat } = require('./batManager');
+const { executeBat, openVersion } = require('./batManager');
 const { getVersion, getAuthor } = require('../utils/getAppInfo');
 const { updateShortcut } = require('./shortcutKeyManager');
 const { refreshWindows, getlive2dPath, nextLive2D } = require('./posterGirlManager');
 const { mouseThroughManager, showcontextmenu } = require('./windowManager');
 const { getServiceStatus, toggleDevice, isReBoot } = require('./keyboardDevices');
+const { showMessageBox } = require('../utils/dialogUtils');
+const { getAutoGetPicture, setAutoGetPicture, openPicDir } = require('./getPhotos');
 
+const Decimal = require('decimal.js');
 
 function initializeIpcHandlers(mainPage) {
 
@@ -164,11 +167,44 @@ function initializeIpcHandlers(mainPage) {
         return await toggleDevice();
     });
 
+    ipcMain.handle('getAutoGetPicture', async () => {
+        return await getAutoGetPicture();
+    });
+
+    ipcMain.handle('setAutoGetPicture', async () => {
+        return await setAutoGetPicture();
+    });
+
+    ipcMain.on('openPicDir', () => {
+        openPicDir();
+    });
+    
+
     // 监听渲染进程的弹窗请求
     ipcMain.on('show-confirm-dialog', async (event) => {
         event.returnValue = await isReBoot();
     });
 
+    ipcMain.on('openVersion', () =>{
+        openVersion();
+    });
+
+
+    ipcMain.on('showMessageBox', (event, win, type, buttons, defaultId, cancelId, title, message) => {
+        showMessageBox(win, type, buttons, defaultId, cancelId, title, message);
+    })
+
+    ipcMain.on('getOrigin',(event,client,rect) => {
+        event.returnValue = Decimal(Decimal(client).div(Decimal(rect))).mul(Decimal(100)).toNumber();
+    });
+
+    ipcMain.on('mul',(event,num1,num2) => {
+        event.returnValue = Decimal(num1).mul(Decimal(num2)).toNumber();
+    });
+
+    ipcMain.on('div',(event,num1,num2) => {
+        event.returnValue = Decimal(num1).div(Decimal(num2)).toNumber();
+    });
 }
 
 module.exports = { initializeIpcHandlers };

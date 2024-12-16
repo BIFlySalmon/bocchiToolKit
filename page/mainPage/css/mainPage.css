@@ -71,6 +71,7 @@ input{
     background-color: rgb(255, 186, 201);
     font-size: 0.6rem;
     color: white;
+    padding: 0.4rem 0.8rem 0.4rem 0.8rem;
 }
 
 .baseButton:disabled {
@@ -173,4 +174,13 @@ input{
 
 #smallFont{
     font-size: 0.5rem;
+}
+
+#shortcutInput {
+    width: auto;
+    text-align: center;
+}
+
+#showWindow,#screenShotsKey{
+    width: auto;
 }

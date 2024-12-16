@@ -1,5 +1,6 @@
 const { app, BrowserWindow, dialog } = require('electron');
 const { autoUpdater } = require('electron-updater');
+const isAutoStart = process.argv.includes('-autoLaunch');
 const log = require('electron-log');
 
 log.transports.file.level = 'info';
@@ -14,6 +15,7 @@ const { registerShortcuts } = require('./services/shortcutKeyManager');
 const { startScreenShots } = require('./services/printScreen');
 const { refreshWindows } = require('./services/posterGirlManager');
 const { storeManager } = require('./services/storeManager');
+const { captureSnapshot } = require('./services/getPhotos');
 
 const gotTheLock = app.requestSingleInstanceLock()
 let mainPage;
@@ -39,6 +41,11 @@ app.whenReady().then(() => {
     startScreenShots();
     registerShortcuts(); //注册快捷键
     refreshWindows();
+
+    //判断是否为开机自启
+    if (isAutoStart){
+        captureSnapshot(); //拍摄图片
+    }
     
     // 自动更新检查
     autoUpdater.checkForUpdatesAndNotify();

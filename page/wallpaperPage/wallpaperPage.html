@@ -3,6 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" 
     content="connect-src *; frame-src *; default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:"/>
     <link rel="stylesheet" href="../base.css">
@@ -12,10 +13,10 @@
 <body>
     <div id="wallpaperContent">
         
-        <img id="wallpaperImg" src="">
+        <img id="wallpaperImg" src="" alt="加载失败！">
         <video id="wallpaperVideo" src="" autoplay="true" loop="true"></video>
-        <iframe id="wallpaperIframe" src="" frameborder="0"></iframe>
-        <iframe id="wallpaperbilibili" src="" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+        <iframe title="wallpaperIframe" id="wallpaperIframe" src="" frameborder="0"></iframe>
+        <iframe title="wallpaperbilibili" id="wallpaperbilibili" src="" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
         <script src="js/wallpaperRanderer.js"></script>
         
     </div>
