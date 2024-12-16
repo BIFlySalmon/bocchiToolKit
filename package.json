@@ -65,6 +65,10 @@
       {
         "from": "./resources/ffmpeg/",
         "to": "ffmpeg"
+      },
+      {
+        "from": "./resources/picture/",
+        "to": "picture"
       }
     ],
     "nsis": {
