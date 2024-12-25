@@ -11,6 +11,7 @@ const { mouseThroughManager, showcontextmenu } = require('./windowManager');
 const { getServiceStatus, toggleDevice, isReBoot } = require('./keyboardDevices');
 const { showMessageBox } = require('../utils/dialogUtils');
 const { getAutoGetPicture, setAutoGetPicture, openPicDir } = require('./getPhotos');
+const { setVisualAudio } = require('./visualAudio');
 
 const Decimal = require('decimal.js');
 
@@ -179,6 +180,9 @@ function initializeIpcHandlers(mainPage) {
         openPicDir();
     });
     
+    ipcMain.handle('setVisualAudio', async () =>{
+        return await setVisualAudio();
+    });
 
     // 监听渲染进程的弹窗请求
     ipcMain.on('show-confirm-dialog', async (event) => {

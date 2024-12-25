@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     keyboardSettings();
     autoGetPictureSettings();
     loadshortcut();
+    visualAudioSettings();
     
     if (wallpaperType === 'img' || wallpaperType === 'video') {
         fileInput.style.display = 'flex';
@@ -201,6 +202,11 @@ async function autoGetPictureSettings(){
     document.getElementById('autoGetPicture').innerText = isEnabled === false?"点击启用":"点击禁用";
 }
 
+async function visualAudioSettings(){
+    const isEnabled = await window.settingsAPI.settingsGet('visualAudio');
+    document.getElementById('visualAudioBtn').innerText = isEnabled === false?"点击启用":"点击禁用";
+}
+
 // 监听自启动开关的变化
 document.getElementById('autoLaunchToggle').addEventListener('change', async (event) => {
     const enable = event.target.checked;
@@ -277,6 +283,21 @@ document.getElementById('autoGetPicture').addEventListener('click', async () => 
 document.getElementById('openPicDir').addEventListener('click', () => {
     window.autoGetPictureAPI.openPicDir();
 });
+
+
+document.getElementById('visualAudioBtn').addEventListener('click', async () => {
+    document.getElementById('visualAudioBtn').disabled = true;
+    document.getElementById('visualAudioBtn').innerText = "设置中...";
+    const updatedState = await window.visualAudioAPI.setVisualAudio();
+
+
+    // let isEnabled = await window.settingsAPI.settingsGet('visualAudio');
+    // await window.settingsAPI.settingsSet('visualAudio', !isEnabled);
+    // isEnabled = await window.settingsAPI.settingsGet('visualAudio');
+    document.getElementById('visualAudioBtn').innerText = !updatedState?"点击启用":"点击禁用";
+    document.getElementById('visualAudioBtn').disabled = false;
+});
+
 
 const shortcutContainer = document.getElementById('shortcutContainer');
 

@@ -14,7 +14,9 @@ const defaultSettings = {
   },
   posterGirlOnOff: false,
   onceNotification: false,
-  autoGetPicture: false
+  autoGetPicture: false,
+  visualAudio: false,
+  visualAudioFPS: 30
 };
 
 // 初始化 store 实例

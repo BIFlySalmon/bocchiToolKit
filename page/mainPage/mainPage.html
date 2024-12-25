@@ -38,7 +38,7 @@
               <div class="input-container">
                   <div class="input-group" id="file-input">
                       <input class="luminous" type="text" id="file-path" placeholder="请选择文件路径" disabled="true">
-                      <button class="baseButton luminous" id="selectFile"><span class="oneline">选择</span><span class="oneline">文件</span></button>
+                      <button class="baseButton luminous" id="selectFile"><span class="oneline">选择</span></button>
                   </div>
                   <div class="input-group luminous" id="url-input" >
                       <input class="baseInput" type="text" id="url-path" placeholder="请输入网址">
@@ -123,13 +123,31 @@
           <div id="card-box">
             <div><span class="card-box-title luminousFont">禁用自带键盘</span></div>
             <div>
-              <span id="smallFont">禁用笔记本自带键盘，以将外接键盘、数位板毫无顾忌的放到上面</span><br>
-              <span>执行功能需要管理员权限</span><br>
+              <span id="smallFont">禁用笔记本自带键盘，以将外接键盘、<br>数位板毫无顾忌的放到上面</span><br>
+              <span>需要管理员权限，重启生效</span><br>
             </div>
             <button class="baseButton luminous" id="manage-keyboard-btn">加载中...</button>
+            <div></div>
+          </div>
+
+          <div id="card-box">
+            <div><span class="card-box-title luminousFont">音频响应</span></div>
             <div>
-              
+              <span>需要系统支持立体声混音</span><br>
+              <span>记得给麦克风权限哦~</span>
             </div>
+            <div>
+              <iframe title="slidingRail" id="slidingRail" src="../../components/slidingRail/slidingRail.html" frameborder="0"></iframe>
+              <button class="baseButton luminous" id="visualAudioBtn">加载中...</button>
+            </div>
+          </div>
+
+          <div id="card-box">
+            <div><span class="card-box-title luminousFont">待开发</span></div>
+          </div>
+
+          <div id="card-box">
+            <div><span class="card-box-title luminousFont">待开发</span></div>
           </div>
         </div>
       </div>
@@ -139,6 +157,7 @@
         <div class="luminousFont" id="appAuthorShow">by:逆飞的三文鱼</div>
       </div>
       <script src="../../components/titlebar/titlebarRenderer.js"></script>
+      <script src="./js/visualAudioAPI.js"></script>
       <script src="js/mainPage.js"></script>
     </div>
   </body>

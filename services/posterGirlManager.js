@@ -7,7 +7,7 @@ let posterGirlWindows;
 
 function refreshWindows(){
     posterGirlWindowsClose();
-    if (storeManager.get('posterGirlOnOff')){
+    if (storeManager.get('posterGirlOnOff')||storeManager.get('visualAudio')){
         posterGirlWindows = createposterGirlWindows();
     } else {
         return posterGirlWindows;
@@ -23,7 +23,10 @@ function posterGirlWindowsClose(){
         } catch (error) {
             posterGirlWindows = null;
         }
+    } else {
+        posterGirlWindows = null;
     }
+    
     return posterGirlWindows;
 }
 

@@ -22,6 +22,9 @@ let mainPage;
 let tray;
 app.commandLine.appendSwitch('lang', 'zh-CN');
 
+//默认寻找独立显卡
+app.commandLine.appendSwitch('force_high_performance_gpu')
+
 app.whenReady().then(() => {
     //防止程序多开
     if (!gotTheLock) {

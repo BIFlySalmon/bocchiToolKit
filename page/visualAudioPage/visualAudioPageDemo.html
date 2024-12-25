@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>音频响应辉光条</title>
+  <link rel="stylesheet" href="./css/visualAudioPage.css">
+</head>
+<body>
+  <div class="controls">
+    <label><input type="checkbox" id="toggleTop" checked> 上边辉光</label><br>
+    <label><input type="checkbox" id="toggleBottom" checked> 下边辉光</label><br>
+    <label><input type="checkbox" id="toggleLeft" checked> 左边辉光</label><br>
+    <label><input type="checkbox" id="toggleRight" checked> 右边辉光</label><br>
+    <label>音频文件：<input type="file" id="audioFile" accept="audio/*"></label>
+    <button id="uploadButton">上传音频文件</button>
+  </div>
+  <canvas id="glowCanvas"></canvas>
+
+  <script src="./js/visualAudioPage.js"></script>
+</body>
+</html>

@@ -14,11 +14,10 @@
 
 #view-box {
     width: 95%;
-    /* height: 95%; */
     aspect-ratio: 2;
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 将每行划分为4列 */
-    grid-auto-rows: 1fr; 
+    grid-template-columns: repeat(3, 1fr); /* 将每行划分为3列 */
+    grid-auto-rows: 10rem;
     row-gap: 3%;
     column-gap: 1.5%;
     align-items: center;
@@ -38,6 +37,7 @@
     border-style: solid;
     border-width: 1.5px;
     border-color: rgba(175, 249, 249, 0.491);
+    overflow: hidden;
 }
 .card-box-title{
     font-size: 1.5rem;
@@ -71,7 +71,7 @@ input{
     background-color: rgb(255, 186, 201);
     font-size: 0.6rem;
     color: white;
-    padding: 0.4rem 0.8rem 0.4rem 0.8rem;
+    padding: 0.3rem 0.8rem 0.3rem 0.8rem;
 }
 
 .baseButton:disabled {
@@ -161,7 +161,7 @@ input{
 #batInput{
     resize:none;
     width: 95%;
-    height: 5rem;
+    height: 4em;
     font-size: 0.5rem;
     white-space: nowrap;
     overflow: auto;
@@ -173,7 +173,7 @@ input{
 }
 
 #smallFont{
-    font-size: 0.5rem;
+    font-size: 0.8rem;
 }
 
 #shortcutInput {
@@ -183,4 +183,9 @@ input{
 
 #showWindow,#screenShotsKey{
     width: auto;
+}
+
+#slidingRail{
+    width: 90%;
+    height: 35px;
 }

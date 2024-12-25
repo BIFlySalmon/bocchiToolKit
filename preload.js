@@ -55,6 +55,12 @@ contextBridge.exposeInMainWorld('autoGetPictureAPI', {
   openPicDir: () => ipcRenderer.send('openPicDir')
 });
 
+
+contextBridge.exposeInMainWorld('visualAudioAPI', {
+  setVisualAudio: () => ipcRenderer.invoke('setVisualAudio')
+});
+
+
 contextBridge.exposeInMainWorld('fileAPI', {
   openFile: async (selectedType) => await ipcRenderer.invoke('dialog:openFile', selectedType),
 });
